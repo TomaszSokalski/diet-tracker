@@ -1,5 +1,5 @@
-<div *ngFor="let food of foods">
-  <div>{{ food.weight }}</div>
-  <div>{{ food.id }}</div>
-  <div>{{ food.name }}</div>
-</div>
+<div *ngIf="response$ | async as response">
+  <ul *ngFor="let item of response.data">
+    <li>{{item.id}} {{item.weight}} {{item.name}} {{item.caloriesPer100g}}</li>
+  </ul>
+</div>                
