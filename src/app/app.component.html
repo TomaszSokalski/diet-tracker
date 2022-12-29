@@ -1,5 +1,16 @@
 <div *ngIf="response$ | async as response">
   <ul *ngFor="let item of response.data">
-    <li>{{item.id}} {{item.weight}} {{item.name}} {{item.caloriesPer100g}}</li>
+    <li>{{item.id}} {{item.weight}} {{item.name}} {{item.caloriesPer100g}} 
+      <button (click)="onDetails(item.id)">Details</button>
+      <button (click)="onDelete(item.id)">Remove</button>
+    </li>
   </ul>
-</div>                
+</div>               
+
+
+<!-- To be done after backend fix -->
+<!-- <div *ngIf="selectedFood$ | async as selectedFood"> -->
+  <!-- <span>{{selectedFood.data.name}}</span> -->
+<!-- </div> -->
+
+<div *ngIf="isLoading" class="loader">Loader</div>
