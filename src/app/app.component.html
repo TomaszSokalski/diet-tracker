@@ -1,16 +1,23 @@
 <div *ngIf="response$ | async as response">
   <ul *ngFor="let item of response.data">
-    <li>{{item.id}} {{item.weight}} {{item.name}} {{item.caloriesPer100g}} 
-      <button (click)="onDetails(item.id)">Details</button>
-      <button (click)="onDelete(item.id)">Remove</button>
+    <li>
+      {{ item.id }} {{ item.weight }} {{ item.name }} {{ item.caloriesPer100g }}
+      <button mat-raised-button (click)="addFood()">
+        Add Food
+      </button>
+      <button mat-raised-button color="warn" (click)="deleteFood(item.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-raised-button (click)="editFood(item.id)">edit</button>
     </li>
   </ul>
-</div>               
+</div>
 
+<div *ngIf="selectedFood$ | async as selectedFood">
+  <div>{{ selectedFood.name }}</div>
+  <div>{{ selectedFood.weight }}</div>
+  <div>{{ selectedFood.caloriesPer100g }}</div>
+  <div>{{ selectedFood.nutriScore }}</div>
+</div>
 
-<!-- To be done after backend fix -->
-<!-- <div *ngIf="selectedFood$ | async as selectedFood"> -->
-  <!-- <span>{{selectedFood.data.name}}</span> -->
-<!-- </div> -->
-
-<div *ngIf="isLoading" class="loader">Loader</div>
+<mat-spinner *ngIf="isLoading">Loader</mat-spinner>
