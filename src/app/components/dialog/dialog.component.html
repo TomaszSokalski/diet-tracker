@@ -1,0 +1,63 @@
+<form [formGroup]="addForm">
+  <div>
+    <mat-form-field class="mat-form-field" appearance="outline" class="form-field">
+      <mat-label> Name</mat-label>
+      <input matInput type="text" name="name" formControlName="name" />
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Weight</mat-label>
+      <input
+        matInput
+        type="number"
+        name="weight"
+        formControlName="weight"
+        min="0"
+      />
+    </mat-form-field>
+    <div>{{ weight.errors | json }}</div>
+  </div>
+  <div>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Calories Per 100g</mat-label>
+      <input
+        matInput
+        type="number"
+        name="caloriesPer100g"
+        formControlName="caloriesPer100g"
+        min="0"
+      />
+    </mat-form-field>
+  </div>
+  <div>
+    <section class="example-section">
+      <mat-checkbox class="example-margin" formControlName="hasNutriScore"
+        >Check me!</mat-checkbox
+      >
+    </section>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>NutriScore</mat-label>
+      <mat-select formControlName="nutriScore">
+        <mat-option value="A">A</mat-option>
+        <mat-option value="B">B</mat-option>
+        <mat-option value="C">C</mat-option>
+        <mat-option value="D">D</mat-option>
+        <mat-option value="E">E</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-action [align]="'end'">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="addForm.invalid"
+      (click)="addFood()"
+    >
+      Save
+    </button>
+    <button style="margin-left: 12px;" mat-raised-button color="warn" (click)="close()">Close</button>
+  </div>
+</form>
+
+<app-loader [isLoading]="isLoading"></app-loader>

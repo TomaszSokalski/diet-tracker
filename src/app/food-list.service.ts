@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Food } from './food.interface';
+import { HttpClient } from '@angular/common/http';
+import { Response } from './response.interface';
+import { Food } from './food.interface'
 
 @Injectable()
 export class FoodListService {
-private _foods: Food[]  = [
-  {
-    id: 1,
-    name: 'Broccoli',
-    weight: 1.5
-  },
-  {
-    id: 2,
-    name: 'Orange',
-    weight: 2
-  },
-]
-  constructor() { }
 
- get foods(): Food[] {
-    return this._foods;
+  constructor(private httpClient: HttpClient) { }
+
+  private API_URL = 'http://localhost:8080/api';
+
+ get foods()  {
+    return this.httpClient.get<Response>(`${this.API_URL}/foods`);
+  }
+
+  onDelete(id: number) {
+    return this.httpClient.delete(`${this.API_URL}/foods/${id}`)
+  }
+
+  onGetItem(id: number) {
+    return this.httpClient.get<Food>(`${this.API_URL}/foods/${id}`)
   }
 }
+
