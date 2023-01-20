@@ -9,7 +9,7 @@ export class FoodListService {
 
   private API_URL = 'http://localhost:8080/api';
 
-  get foods() {
+  get food() {
     return this.httpClient.get<Response>(`${this.API_URL}/foods`);
   }
 

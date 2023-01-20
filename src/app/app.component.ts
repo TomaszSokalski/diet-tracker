@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FoodListService } from './services/food-list.service';
 import { Food } from './interfaces/food.interface';
 import { finalize, Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { DialogComponent } from './components/dialog/dialog.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  response$ = this.foodService.foods;
+  response$ = this.foodService.food;
   title = 'diet-trucker';
   selectedFood$: Observable<Food>;
   isLoading = false;
@@ -29,7 +29,7 @@ export class AppComponent {
       })
       .afterClosed()
       .subscribe(() => {
-        this.response$ = this.foodService.foods;
+        this.response$ = this.foodService.food;
       });
   }
 
@@ -43,7 +43,7 @@ export class AppComponent {
         })
       )
       .subscribe(() => {
-        this.response$ = this.foodService.foods;
+        this.response$ = this.foodService.food;
       });
   }
 
@@ -55,7 +55,7 @@ export class AppComponent {
       })
       .afterClosed()
       .subscribe(() => {
-        this.response$ = this.foodService.foods;
+        this.response$ = this.foodService.food;
       });
   }
 }

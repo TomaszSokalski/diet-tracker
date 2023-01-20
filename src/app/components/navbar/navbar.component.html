@@ -1,0 +1,16 @@
+<p>
+  <mat-toolbar color="primary">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/home">Home</button>
+      <button mat-menu-item routerLink="/diary">Diary</button>
+      <button mat-menu-item routerLink="/foods">Fooods</button>
+      <button mat-menu-item routerLink="/exercises">Exercises</button>
+    </mat-menu>
+    <span>Food Tracker</span>
+    <span class="example-spacer"></span>
+    <button mat-flat-button color="warn" (click)="addFood()">Add Food</button>
+  </mat-toolbar>
+</p>

@@ -9,9 +9,13 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from './components/loader/loader.component';
 import { AngularMaterialModule } from './shared/material.module';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FoodsListComponent } from './components/foods-list/foods-list.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, DialogComponent, LoaderComponent],
+  declarations: [AppComponent, DialogComponent, LoaderComponent, NavbarComponent, FoodsListComponent, PageNotFoundComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
