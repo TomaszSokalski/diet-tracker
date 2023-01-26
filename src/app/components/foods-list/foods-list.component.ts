@@ -1,9 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { finalize, map } from 'rxjs';
+import { finalize, map, } from 'rxjs';
+import { Food } from 'src/app/interfaces/food.interface';
 import { FoodListService } from 'src/app/services/food-list.service';
 import { DialogComponent } from '../dialog/dialog.component';
 
@@ -23,14 +24,15 @@ export class FoodsListComponent implements OnInit {
     'nutriScore',
     'action',
   ];
-  dataSource: MatTableDataSource<any>;
+  dataSource: MatTableDataSource<Food>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private foodService: FoodListService, public dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   deleteFood(id: string) {
     this.isLoading = true;
@@ -71,7 +73,6 @@ export class FoodsListComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();

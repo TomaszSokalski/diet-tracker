@@ -15,7 +15,15 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, DialogComponent, LoaderComponent, NavbarComponent, FoodsListComponent, PageNotFoundComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    DialogComponent,
+    LoaderComponent,
+    NavbarComponent,
+    FoodsListComponent,
+    PageNotFoundComponent,
+    HomeComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
