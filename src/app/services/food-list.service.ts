@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Response } from '../interfaces/response.interface';
 import { Food } from '../interfaces/food.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class FoodListService {
   constructor(private httpClient: HttpClient) {}
 
-  private API_URL = 'http://localhost:8080/api';
+  private API_URL = environment.baseUrl;
 
   get food() {
     return this.httpClient.get<Response>(`${this.API_URL}/foods`);
   }
 
   deleteFood(id: string) {
-    return this.httpClient.delete(`${this.API_URL}/foods/${id}`);
+    return this.httpClient.delete<Food>(`${this.API_URL}/foods/${id}`);
   }
 
   getFood(id: string) {
@@ -22,10 +23,21 @@ export class FoodListService {
   }
 
   postFood(food: any) {
-    return this.httpClient.post(`${this.API_URL}/foods/`, food);
+    return this.httpClient.post<Food>(`${this.API_URL}/foods/`, food);
   }
 
   updateFood(food: any, id: string) {
     return this.httpClient.put<Food>(`${this.API_URL}/foods/${id}`, food);
+  }
+
+  searchFoods(searchBy?: string) {
+    let params;
+
+    if (searchBy) {
+      // tworzymy paramsy
+      params = new HttpParams({ fromString: `name=${searchBy}` });
+    }
+    // strzał z paramsami albo bez
+    return this.httpClient.get(`${this.API_URL}/foods`, { params: params });
   }
 }

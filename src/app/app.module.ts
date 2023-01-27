@@ -13,6 +13,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FoodsListComponent } from './components/foods-list/foods-list.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HomeComponent } from './components/home/home.component';
     FoodsListComponent,
     PageNotFoundComponent,
     HomeComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

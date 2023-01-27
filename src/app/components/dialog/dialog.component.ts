@@ -15,7 +15,6 @@ import { FoodListService } from '../../services/food-list.service';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
-  isLoading = false;
   addForm = this.fb.group({
     name: ['', [Validators.required]],
     weight: ['', [Validators.required, Validators.min(0)]],
@@ -31,7 +30,7 @@ export class DialogComponent implements OnInit {
     public dialogRef: MatDialogRef<DialogComponent>
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.setFormValue();
     this.hasNutriScore.valueChanges.subscribe((value) => {
       const nutriScore = this.addForm.get('nutriScore');
@@ -50,10 +49,6 @@ export class DialogComponent implements OnInit {
         .getFood(this.id)
         .subscribe((food) => this.addForm.patchValue(food as any)); //TODO type correct
     }
-  }
-
-  get weight(): FormControl {
-    return this.addForm.get('weight') as FormControl;
   }
 
   get hasNutriScore(): FormControl {
