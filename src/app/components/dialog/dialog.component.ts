@@ -47,7 +47,9 @@ export class DialogComponent implements OnInit {
     if (this.id) {
       this.foodService
         .getFood(this.id)
-        .subscribe((food) => this.addForm.patchValue(food as any)); //TODO type correct
+        .subscribe((food) => {
+          return this.addForm.patchValue(food as any);
+        }); //TODO type correct
     }
   }
 

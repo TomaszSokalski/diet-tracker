@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Response } from '../interfaces/response.interface';
 import { Food } from '../interfaces/food.interface';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class FoodListService {
@@ -22,15 +23,15 @@ export class FoodListService {
     return this.httpClient.get<Food>(`${this.API_URL}/foods/${id}`);
   }
 
-  postFood(food: any) {
+  postFood(food: Food) {
     return this.httpClient.post<Food>(`${this.API_URL}/foods/`, food);
   }
 
-  updateFood(food: any, id: string) {
+  updateFood(food: Food, id: string) {
     return this.httpClient.put<Food>(`${this.API_URL}/foods/${id}`, food);
   }
 
-  searchFoods(searchBy?: string) {
+  searchFoods(searchBy?: string): Observable<Response> {
     let params;
 
     if (searchBy) {
@@ -38,6 +39,6 @@ export class FoodListService {
       params = new HttpParams({ fromString: `name=${searchBy}` });
     }
     // strzał z paramsami albo bez
-    return this.httpClient.get(`${this.API_URL}/foods`, { params: params });
+    return this.httpClient.get<Response>(`${this.API_URL}/foods`, { params: params });
   }
 }

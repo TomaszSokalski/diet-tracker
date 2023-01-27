@@ -4,20 +4,17 @@
     <input
       matInput
       [formControl]="search"
-      (keyup)="applyFilter($event)"
       placeholder="Search Food"
       #input
     />
 
-    {{ foods$ | async | json }}
     <div *ngIf="loading$ | async">Loading</div>
   </mat-form-field>
   <div class="mat-elevation-z8">
     <table
       class="table"
-      *ngIf="response$ | async as response"
       mat-table
-      [dataSource]="(dataSource$ | async)!"
+      [dataSource]="foods$"
       matSort
     >
       <ng-container matColumnDef="name">
