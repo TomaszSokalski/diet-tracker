@@ -1,19 +1,17 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FoodListService } from './services/food-list.service';
-import { HttpClientModule } from '@angular/common/http';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoaderComponent } from './components/loader/loader.component';
-import { AngularMaterialModule } from './shared/material.module';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FoodsListComponent } from './components/foods-list/foods-list.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { HomeComponent } from './components/home/home.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoaderComponent } from './components/loader/loader.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AngularMaterialModule } from './shared/material.module';
+import { FoodListService } from './views/foods-list/services/food-list.service';
 
 @NgModule({
   declarations: [
@@ -21,9 +19,7 @@ import { FooterComponent } from './components/footer/footer.component';
     DialogComponent,
     LoaderComponent,
     NavbarComponent,
-    FoodsListComponent,
     PageNotFoundComponent,
-    HomeComponent,
     FooterComponent,
   ],
   imports: [
