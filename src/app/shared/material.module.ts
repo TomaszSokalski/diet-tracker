@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -33,11 +32,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
@@ -89,6 +88,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     MatCheckboxModule,
     MatMenuModule,
+    MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatAutocompleteModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatExpansionModule,
+    MatButtonToggleModule,
+    MatProgressBarModule,
+    MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [],
 })
