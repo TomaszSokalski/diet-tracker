@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoaderComponent } from './components/loader/loader.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { AngularMaterialModule } from './shared/material.module';
@@ -17,7 +16,6 @@ import { FoodListService } from './views/foods-list/services/food-list.service';
   declarations: [
     AppComponent,
     DialogComponent,
-    LoaderComponent,
     NavbarComponent,
     PageNotFoundComponent,
     FooterComponent,
