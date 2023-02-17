@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DiaryService } from './services/diary.service';
 
 
 @Component({
@@ -7,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./diary.component.scss'],
 })
 export class DiaryComponent implements OnInit {
+  diary$ = this.diaryService.getDiary();
 
-  constructor() {}
+  constructor(private diaryService: DiaryService) {}
 
   ngOnInit(): void {}
 }
