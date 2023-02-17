@@ -1,11 +1,14 @@
 .footer {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    height: 5vh;
-    line-height: 5vh;
-    width: 100%;
+    margin-top: 70px;
     background: #3f51b5;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+.footer-text {
+    font-size: 12px;
+    letter-spacing: 1px;
     color: #fff;
-    text-align: center;
 }
