@@ -9,8 +9,9 @@ import { DiaryService } from '../../services/diary.service';
   styleUrls: ['./diary-table.component.scss'],
 })
 export class DiaryTableComponent implements OnInit {
-  displayedColumns = DISPLAYED_COLUMNS;
   @Input() diaries: Diary[] | null = null;
+
+  displayedColumns = DISPLAYED_COLUMNS;
 
   constructor(private diaryService: DiaryService) {}
 

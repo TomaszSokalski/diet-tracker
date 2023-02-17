@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DiaryService } from './services/diary.service';
+import { DiaryState } from './state/diary.state';
 
 
 @Component({
@@ -8,9 +9,11 @@ import { DiaryService } from './services/diary.service';
   styleUrls: ['./diary.component.scss'],
 })
 export class DiaryComponent implements OnInit {
-  diary$ = this.diaryService.getDiary();
+  diary$ = this.diaryState.diary$;
 
-  constructor(private diaryService: DiaryService) {}
+  constructor(private diaryState: DiaryState) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.diaryState.getDiary();
+  }
 }

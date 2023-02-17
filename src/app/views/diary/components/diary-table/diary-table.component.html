@@ -11,7 +11,7 @@
 
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef>Date</th>
-    <td mat-cell *matCellDef="let diary">{{ diary.date }}</td>
+    <td mat-cell *matCellDef="let diary">{{ diary.date | date : "dd.MM.yyyy"}}</td>
   </ng-container>
 
   <ng-container matColumnDef="delete">

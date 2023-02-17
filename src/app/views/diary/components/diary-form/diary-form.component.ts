@@ -13,7 +13,6 @@ export class DiaryFormComponent implements OnInit {
   foods$ = this.foodListState.food$;
   today = new Date();
   maxDate = new Date();
-  date = new FormControl(new Date());
   diaryForm = this.fb.group({
     date: ['', [Validators.required]],
     foodId: ['', [Validators.required]],
@@ -34,7 +33,9 @@ export class DiaryFormComponent implements OnInit {
       return;
     }
     const payload = this.diaryPayload(this.diaryForm);
-    this.diaryService.postFoodToDiary(payload).subscribe();
+    this.diaryService.postFoodToDiary(payload).subscribe(() => {
+      this.diaryService.getDiary();
+    });
   }
 
   private diaryPayload(diaryForm: FormGroup): Diary {
