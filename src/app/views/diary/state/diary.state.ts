@@ -1,8 +1,8 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
-import { Diary } from "src/app/interfaces/diary.interface";
-import { DiaryService } from "../services/diary.service";
-
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, finalize } from 'rxjs';
+import { DiaryResponse } from 'src/app/interfaces/diary-response.interface';
+import { Diary } from 'src/app/interfaces/diary.interface';
+import { DiaryService } from '../services/diary.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,20 +16,37 @@ export class DiaryState {
 
   constructor(private diaryService: DiaryService) {}
 
-  getDiary(): void {
+  getDiary(date?: string): void {
     this.updateLoading(true);
-
-    this.diaryService.getDiary().subscribe({
-      next: (diary) => {
-        this.diarySource.next(diary);
+    const observer = {
+      next: (response: DiaryResponse) => {
+        this.diarySource.next(response.data);
       },
       complete: () => {
         this.updateLoading(false);
       },
-    });
+    };
+
+    date
+      ? this.diaryService.getDiaryByDate(date).subscribe(observer)
+      : this.diaryService.getDiary().subscribe(observer);
   }
 
-  private updateLoading(value: boolean): void {
+  
+
+  deleteDiary(id: string): void {
+    this.diaryService.deleteDiary(id)
+      .pipe(
+        finalize(() => {
+          this.updateLoading(true);
+        })
+      )
+      .subscribe(() => {
+        this.getDiary();
+      });
+}
+
+private updateLoading(value: boolean): void {
     this.loadingSource.next(value);
   }
 }

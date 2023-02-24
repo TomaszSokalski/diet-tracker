@@ -1,10 +1,16 @@
 <div class="container">
   <form [formGroup]="diaryForm">
     <div class="form-item">
-      Diet for day: {{ today | date : "dd.MM.yyyy" }}
+      Diet for day: {{ date.value | date : "dd.MM.yyyy" }}
       <mat-form-field appearance="fill">
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="date" [max]="maxDate" />
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          [max]="maxDate"
+          (dateChange)="onDateChange($event)"
+        />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -14,12 +20,14 @@
       <mat-form-field appearance="fill">
         <mat-label>Foods</mat-label>
         <mat-select formControlName="foodId">
-          <mat-option *ngFor="let food of (foods$ | async)" [value]="food.id">
+          <mat-option *ngFor="let food of foods$ | async" [value]="food.id">
             {{ food.name }}</mat-option
           >
         </mat-select>
       </mat-form-field>
-      <button mat-flat-button color="warn" (click)="addFoodToDiary()">Add</button>
+      <button mat-flat-button color="warn" (click)="addFoodToDiary()">
+        Add
+      </button>
     </div>
   </form>
 </div>

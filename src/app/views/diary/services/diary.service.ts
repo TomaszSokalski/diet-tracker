@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DiaryResponse } from 'src/app/interfaces/diary-response.interface';
 import { Diary } from 'src/app/interfaces/diary.interface';
 import { environment } from 'src/environments/environment';
@@ -13,21 +13,32 @@ export class DiaryService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getDiary() {
+  getDiary(): Observable<DiaryResponse> {
     return this.httpClient
       .get<DiaryResponse>(`${this.API_URL}/diary`)
-      .pipe<Diary[]>(map((diary) => diary.data));
   }
 
-  getDiaryById(id: string) {
+  getDiaryById(id: string): Observable<Diary> {
     return this.httpClient.get<Diary>(`${this.API_URL}/diary/${id}`);
   }
 
-  postFoodToDiary(food: Diary) {
+  getDiaryByDate(searchBy?: string): Observable<DiaryResponse> {
+    let params;
+
+    if (searchBy) {
+      params = new HttpParams({ fromString: `data=${searchBy}` });
+    }
+    return this.httpClient
+      .get<DiaryResponse>(`${this.API_URL}/diary`, {
+        params: params,
+      })
+  }
+
+  postFoodToDiary(food: Diary): Observable<Diary> {
     return this.httpClient.post<Diary>(`${this.API_URL}/diary`, food);
   }
 
-  deleteFoodinDiaryById(id: string) {
-    return this.httpClient.delete<Diary>(`${this.API_URL}/foods/${id}`);
+  deleteDiary(id: string): Observable<Diary> {
+    return this.httpClient.delete<Diary>(`${this.API_URL}/diary/${id}`);
   }
 }

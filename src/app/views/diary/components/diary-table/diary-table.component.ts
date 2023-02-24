@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Diary } from 'src/app/interfaces/diary.interface';
+import { Component, OnInit } from '@angular/core';
+
 import { DISPLAYED_COLUMNS } from '../../displayed-columns.const';
-import { DiaryService } from '../../services/diary.service';
+import { DiaryState } from '../../state/diary.state';
 
 @Component({
   selector: 'app-diary-table',
@@ -9,16 +9,16 @@ import { DiaryService } from '../../services/diary.service';
   styleUrls: ['./diary-table.component.scss'],
 })
 export class DiaryTableComponent implements OnInit {
-  @Input() diaries: Diary[] | null = null;
-
   displayedColumns = DISPLAYED_COLUMNS;
 
-  constructor(private diaryService: DiaryService) {}
+  diary$ = this.diaryState.diary$;
+
+  constructor(private diaryState: DiaryState) {}
 
   ngOnInit(): void {
   }
 
   deleteFoodInDiary(id: string): void {
-    this.diaryService.deleteFoodinDiaryById(id);
+    this.diaryState.deleteDiary(id);
   }
 }
