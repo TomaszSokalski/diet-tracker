@@ -1,7 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker'; 
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Diary } from 'src/app/interfaces/diary.interface';
 import { FoodListState } from 'src/app/views/foods-list/state/food-list.state';
 import { DiaryService } from '../../services/diary.service';
@@ -35,7 +40,7 @@ export class DiaryFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.foodListState.getFoods();
-    this.date.setValue(this.today)
+    this.date.setValue(this.today);
   }
 
   addFoodToDiary(): void {
@@ -43,7 +48,6 @@ export class DiaryFormComponent implements OnInit {
       return;
     }
     const payload = this.diaryPayload(this.diaryForm);
-    console.log(payload)
     this.diaryService.postFoodToDiary(payload).subscribe(() => {
       this.diaryService.getDiary();
     });
@@ -51,12 +55,12 @@ export class DiaryFormComponent implements OnInit {
 
   onDateChange(event: MatDatepickerInputEvent<string>): void {
     const transformedData = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-    
+
     this.diaryState.getDiary(transformedData!);
   }
 
   private diaryPayload(diaryForm: FormGroup): Diary {
-    const date = this.date
+    const date = this.date;
     const formattedDate = this.datePipe.transform(date.value, 'yyyy-MM-dd');
     const { value } = diaryForm;
     return {

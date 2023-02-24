@@ -1,5 +1,5 @@
-<div class="container">
-  <form [formGroup]="diaryForm">
+<!-- <div class="container"> -->
+  <form [formGroup]="diaryForm" class="container">
     <div class="form-item">
       Diet for day: {{ date.value | date : "dd.MM.yyyy" }}
       <mat-form-field appearance="fill">
@@ -25,9 +25,11 @@
           >
         </mat-select>
       </mat-form-field>
+    </div>
+    <div class="form-itme">
       <button mat-flat-button color="warn" (click)="addFoodToDiary()">
         Add
       </button>
     </div>
   </form>
-</div>
+<!-- </div> -->
