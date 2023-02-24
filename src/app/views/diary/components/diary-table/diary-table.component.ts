@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Diary } from 'src/app/interfaces/diary.interface';
 
 import { DISPLAYED_COLUMNS } from '../../displayed-columns.const';
 import { DiaryState } from '../../state/diary.state';
@@ -10,7 +11,7 @@ import { DiaryState } from '../../state/diary.state';
 })
 export class DiaryTableComponent implements OnInit {
   displayedColumns = DISPLAYED_COLUMNS;
-
+  
   diary$ = this.diaryState.diary$;
 
   constructor(private diaryState: DiaryState) {}
@@ -18,7 +19,7 @@ export class DiaryTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteFoodInDiary(id: string): void {
-    this.diaryState.deleteDiary(id);
+  deleteFoodInDiary(diary : Diary): void {
+    this.diaryState.deleteDiary(diary.id, diary.date);
   }
 }

@@ -14,8 +14,7 @@ export class DiaryService {
   constructor(private httpClient: HttpClient) {}
 
   getDiary(): Observable<DiaryResponse> {
-    return this.httpClient
-      .get<DiaryResponse>(`${this.API_URL}/diary`)
+    return this.httpClient.get<DiaryResponse>(`${this.API_URL}/diary`);
   }
 
   getDiaryById(id: string): Observable<Diary> {
@@ -28,10 +27,9 @@ export class DiaryService {
     if (searchBy) {
       params = new HttpParams({ fromString: `data=${searchBy}` });
     }
-    return this.httpClient
-      .get<DiaryResponse>(`${this.API_URL}/diary`, {
-        params: params,
-      })
+    return this.httpClient.get<DiaryResponse>(`${this.API_URL}/diary`, {
+      params: params,
+    });
   }
 
   postFoodToDiary(food: Diary): Observable<Diary> {

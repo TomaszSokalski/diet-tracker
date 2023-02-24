@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="diary$" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" *ngIf="diary$ | async as dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>Id</th>
     <td mat-cell *matCellDef="let diary">{{ diary.id }}</td>
@@ -18,8 +18,8 @@
 
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef>Delete</th>
-    <td mat-cell *matCellDef="let row">
-      <button mat-icon-button color="warn" (click)="deleteFoodInDiary(row.id)">
+    <td mat-cell *matCellDef="let diary">
+      <button mat-icon-button color="warn" (click)="deleteFoodInDiary(diary)">
         <mat-icon>delete</mat-icon>
       </button>
     </td>

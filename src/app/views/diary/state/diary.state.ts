@@ -34,7 +34,7 @@ export class DiaryState {
 
   
 
-  deleteDiary(id: string): void {
+  deleteDiary(id: string, date: string): void {
     this.diaryService.deleteDiary(id)
       .pipe(
         finalize(() => {
@@ -42,7 +42,7 @@ export class DiaryState {
         })
       )
       .subscribe(() => {
-        this.getDiary();
+        this.getDiary(date);
       });
 }
 
