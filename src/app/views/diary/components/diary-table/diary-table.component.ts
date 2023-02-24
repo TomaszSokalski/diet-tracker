@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Diary } from 'src/app/interfaces/diary.interface';
 
@@ -15,11 +16,18 @@ export class DiaryTableComponent implements OnInit {
   diary$ = this.diaryState.diary$;
   loading$ = this.diaryState.loading$;
 
-  constructor(private diaryState: DiaryState) {}
+  constructor(private diaryState: DiaryState, private datePipe: DatePipe) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getInitialValue();
+  }
 
   deleteFoodInDiary(diary: Diary): void {
     this.diaryState.deleteDiary(diary.id, diary.date);
+  }
+
+  private getInitialValue(): void {
+    let date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+    this.diaryState.getDiary(date!);
   }
 }
