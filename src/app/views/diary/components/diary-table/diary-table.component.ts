@@ -11,15 +11,15 @@ import { DiaryState } from '../../state/diary.state';
 })
 export class DiaryTableComponent implements OnInit {
   displayedColumns = DISPLAYED_COLUMNS;
-  
+
   diary$ = this.diaryState.diary$;
+  loading$ = this.diaryState.loading$;
 
   constructor(private diaryState: DiaryState) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  deleteFoodInDiary(diary : Diary): void {
+  deleteFoodInDiary(diary: Diary): void {
     this.diaryState.deleteDiary(diary.id, diary.date);
   }
 }

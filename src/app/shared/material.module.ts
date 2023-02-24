@@ -32,6 +32,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatNativeDateModule } from '@angular/material/core';
+import { LoaderComponent } from './components/loader/loader.component';
 
 const MODULES: any[] = [
   MatCheckboxModule,
@@ -67,14 +68,9 @@ const MODULES: any[] = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MODULES
-  ],
-  exports: [
-    MODULES,
-    MatNativeDateModule,
-  ],
+  declarations: [LoaderComponent],
+  imports: [CommonModule, MODULES],
+  exports: [MODULES, MatNativeDateModule, LoaderComponent],
   providers: [],
 })
 export class AngularMaterialModule {}
