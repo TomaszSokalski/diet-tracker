@@ -20,7 +20,7 @@
       <mat-label>Foods</mat-label>
       <mat-select formControlName="foodId">
         <mat-option *ngFor="let food of foods$ | async" [value]="food.id">
-          {{ food.name }}</mat-option
+          {{ food.name }} - {{ food.weight }}kg</mat-option
         >
       </mat-select>
     </mat-form-field>
