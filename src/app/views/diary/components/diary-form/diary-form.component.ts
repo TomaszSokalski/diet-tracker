@@ -43,6 +43,7 @@ export class DiaryFormComponent implements OnInit {
       return;
     }
     const payload = this.diaryPayload(this.diaryForm);
+    console.log(payload)
     this.diaryService.postFoodToDiary(payload).subscribe(() => {
       this.diaryService.getDiary();
     });
@@ -55,10 +56,12 @@ export class DiaryFormComponent implements OnInit {
   }
 
   private diaryPayload(diaryForm: FormGroup): Diary {
+    const date = this.date
+    const formattedDate = this.datePipe.transform(date.value, 'yyyy-MM-dd');
     const { value } = diaryForm;
     return {
       id: value.id,
-      date: value.date,
+      date: formattedDate!,
       foodIds: value.foodId,
     };
   }
