@@ -43,13 +43,13 @@ export class DiaryFormComponent implements OnInit {
     this.date.setValue(this.today);
   }
 
-  addFoodToDiary(): void {
+  addFoodToDiary(): void {  
     if (this.diaryForm.invalid) {
       return;
     }
     const payload = this.diaryPayload(this.diaryForm);
     this.diaryService.postFoodToDiary(payload).subscribe(() => {
-      this.diaryService.getDiary();
+      this.diaryState.getDiary(payload.date);
     });
   }
 
