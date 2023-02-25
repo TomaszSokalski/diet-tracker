@@ -24,6 +24,7 @@ export class DiaryFormComponent implements OnInit {
   diaryForm = this.fb.group({
     date: ['', [Validators.required]],
     foodId: ['', [Validators.required]],
+    weight: ['', [Validators.required, Validators.min(0)]],
   });
 
   constructor(
@@ -43,7 +44,7 @@ export class DiaryFormComponent implements OnInit {
     this.date.setValue(this.today);
   }
 
-  addFoodToDiary(): void {  
+  addFoodToDiary(): void {
     if (this.diaryForm.invalid) {
       return;
     }
@@ -54,6 +55,9 @@ export class DiaryFormComponent implements OnInit {
   }
 
   onDateChange(event: MatDatepickerInputEvent<string>): void {
+    if (!event.value) {
+      return;
+    }
     const transformedData = this.datePipe.transform(event.value, 'yyyy-MM-dd');
 
     this.diaryState.getDiary(transformedData!);
