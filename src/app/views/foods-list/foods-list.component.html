@@ -30,7 +30,7 @@
 
       <ng-container matColumnDef="nutriScore">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>NutriScore</th>
-        <td mat-cell *matCellDef="let row">{{ row.nutriScore }}</td>
+        <td mat-cell *matCellDef="let row"><app-nutri-score [nutriScore]="row.nutriScore"></app-nutri-score></td>
       </ng-container>
 
       <ng-container matColumnDef="delete">

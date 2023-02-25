@@ -1,0 +1,29 @@
+@mixin nutriscore-label($color: green) {
+  background-color: $color;
+  display: inline-block;
+  font-weight: bold;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 100%;
+  margin: 0;
+}
+
+.green {
+  @include nutriscore-label;
+}
+
+.lightgreen {
+  @include nutriscore-label(lightgreen);
+}
+
+.yellow {
+  @include nutriscore-label(yellow);
+}
+
+.orange {
+  @include nutriscore-label(orange);
+}
+
+.red {
+  @include nutriscore-label(red);
+}
