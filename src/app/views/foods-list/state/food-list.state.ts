@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, finalize, take } from 'rxjs';
 import { Food } from 'src/app/interfaces/food.interface';
 import { FoodListService } from '../services/food-list.service';
@@ -12,7 +13,10 @@ export class FoodListState {
   private loadingSource = new BehaviorSubject<boolean>(true);
   loading$ = this.loadingSource.asObservable();
 
-  constructor(private foodService: FoodListService) {}
+  constructor(
+    private foodService: FoodListService,
+    private snackbar: MatSnackBar
+  ) {}
 
   getFoods(): void {
     this.updateLoading(true);
@@ -20,6 +24,9 @@ export class FoodListState {
     this.foodService.food.subscribe({
       next: (response) => {
         this.foodSource.next(response.data);
+      },
+      error: (error) => {
+        this.snackbar.open(error.message)
       },
       complete: () => {
         this.updateLoading(false);
@@ -37,6 +44,9 @@ export class FoodListState {
         next: (response) => {
           this.foodSource.next(response.data);
         },
+        error: (error) => {
+          this.snackbar.open(error.message);
+        },
         complete: () => {
           this.updateLoading(false);
         },
@@ -51,10 +61,21 @@ export class FoodListState {
           this.updateLoading(true);
         })
       )
-      .subscribe(() => {
-        this.getFoods();
-      });
-  }
+      .subscribe({
+        next: () => {
+          this.getFoods();
+        },
+        error: (error) => {
+          this.snackbar.open(error.message);
+        },
+        complete: () => {
+          this.snackbar.open('Food Deleted', '', {
+            duration: 2000,
+          });
+        }
+      })
+  };
+
 
   private updateLoading(value: boolean): void {
     this.loadingSource.next(value);

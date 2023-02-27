@@ -13,7 +13,6 @@ import { DiaryState } from '../../state/diary.state';
 export class DiaryTableComponent implements OnInit {
   displayedColumns = DISPLAYED_COLUMNS;
 
-  error$ = this.diaryState.error$;
   diary$ = this.diaryState.diary$;
   loading$ = this.diaryState.loading$;
 
@@ -21,7 +20,6 @@ export class DiaryTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInitialValue();
-    this.error$.subscribe(console.log);
   }
 
   deleteFoodInDiary(diary: Diary): void {
