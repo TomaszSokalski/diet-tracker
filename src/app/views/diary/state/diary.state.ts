@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, finalize } from 'rxjs';
 import { DiaryResponse } from 'src/app/interfaces/diary-response.interface';
 import { Diary } from 'src/app/interfaces/diary.interface';
@@ -14,10 +15,10 @@ export class DiaryState {
   private loadingSource = new BehaviorSubject<boolean>(true);
   loading$ = this.loadingSource.asObservable();
 
-  private errorSource = new BehaviorSubject<any>(null);
-  error$ = this.errorSource.asObservable();
-
-  constructor(private diaryService: DiaryService) {}
+  constructor(
+    private diaryService: DiaryService,
+    private snackbar: MatSnackBar
+  ) {}
 
   getDiary(date?: string): void {
     this.updateLoading(true);
@@ -25,8 +26,8 @@ export class DiaryState {
       next: (response: DiaryResponse) => {
         this.diarySource.next(response.data);
       },
-      error: (err: any) => {
-        this.errorSource.next(err);
+      error: (error: Error) => {
+        this.snackbar.open(error.message);
       },
       complete: () => {
         this.updateLoading(false);
@@ -46,8 +47,18 @@ export class DiaryState {
           this.updateLoading(true);
         })
       )
-      .subscribe(() => {
-        this.getDiary(date);
+      .subscribe({
+        next: () => {
+          this.getDiary(date);
+        },
+        error: (error) => {
+          this.snackbar.open(error.message);
+        },
+        complete: () => {
+          this.snackbar.open('Food Deleted', '', {
+            duration: 2000,
+          });
+        },
       });
   }
 
