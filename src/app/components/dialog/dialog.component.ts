@@ -6,8 +6,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
 import { Food } from 'src/app/interfaces/food.interface';
-import { FoodListService } from '../../services/food-list.service';
+import { DialogData } from 'src/app/views/foods-list/dialog-data.interface';
+import { FoodListService } from '../../views/foods-list/services/food-list.service';
 
 @Component({
   selector: 'app-dialog',
@@ -15,19 +17,21 @@ import { FoodListService } from '../../services/food-list.service';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
-  isLoading = false;
+  food$ = new Subject<Food>();
   addForm = this.fb.group({
     name: ['', [Validators.required]],
     weight: ['', [Validators.required, Validators.min(0)]],
     caloriesPer100g: ['', [Validators.min(0)]],
     nutriScore: [''],
-    hasNutriScore: [true],
+    hasNutriScore: [false],
   });
+
+  private id = this.data?.id;
 
   constructor(
     private foodService: FoodListService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public id: string,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dialogRef: MatDialogRef<DialogComponent>
   ) {}
 
@@ -46,14 +50,12 @@ export class DialogComponent implements OnInit {
 
   private setFormValue() {
     if (this.id) {
-      this.foodService
-        .getFood(this.id)
-        .subscribe((food) => this.addForm.patchValue(food as any)); //TODO type correct
+      this.foodService.getFood(this.id).subscribe((food) => {
+        this.data.isReadonly
+          ? this.food$.next(food)
+          : this.addForm.patchValue(food as any);
+      });
     }
-  }
-
-  get weight(): FormControl {
-    return this.addForm.get('weight') as FormControl;
   }
 
   get hasNutriScore(): FormControl {

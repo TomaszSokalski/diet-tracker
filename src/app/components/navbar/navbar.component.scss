@@ -1,7 +1,42 @@
-.example-spacer {
-  flex: 1 1 auto;
+.mat-drawer-container {
+  position: static;
+}
+
+mat-sidenav {
+  width: 250px;
+  position: absolute;
+  left: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation-items {
+  list-style: none;
+}
+
+.navigation-items a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #fff;
 }
 
 .active {
-  color: red;
+  color: #b53f3f;
+}
+
+.menu-toogler {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation-items {
+    display: none;
+  }
+
+  .menu-toogler {
+    display: block;
+  }
 }

@@ -1,3 +1,9 @@
-.wrapper {
-    padding: 10px;
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app__content {
+    flex-grow: 1;
 }

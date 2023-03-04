@@ -1,0 +1,68 @@
+<header class="header">
+  <h1>Diet for day: {{ date.value | date : "dd.MM.yyyy" }}</h1>
+</header>
+
+<form [formGroup]="diaryForm" class="container">
+  <div class="form-item">
+    <mat-form-field appearance="fill">
+      <mat-label>Select a date</mat-label>
+      <input
+        matInput
+        required
+        [matDatepicker]="picker"
+        formControlName="date"
+        [max]="maxDate"
+        (dateChange)="onDateChange($event)"
+      />
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="diaryForm.controls.date.hasError('required')">
+        <strong>Field required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-item">
+    <mat-form-field appearance="fill">
+      <mat-label>Choose food</mat-label>
+      <mat-select formControlName="foodId" required>
+        <mat-option>- Clear -</mat-option>
+        <mat-option *ngFor="let food of foods$ | async" [value]="food.id">
+          {{ food.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="diaryForm.controls.foodId.hasError('required')">
+        <strong>Field required</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-item">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter the weight</mat-label>
+      <input
+        matInput
+        required
+        type="number"
+        formControlName="weight"
+        placeholder="Enter the weight"
+      />
+      <span matSuffix>kg</span>
+      <mat-error *ngIf="diaryForm.controls.weight.hasError('required')">
+        <strong>Field required</strong>
+      </mat-error>
+      <mat-error *ngIf="diaryForm.controls.weight.hasError('min')">
+        Value cannot be <strong>less than 0</strong>
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="form-item">
+    <button
+      mat-flat-button
+      color="warn"
+      (click)="addFoodToDiary()"
+      [disabled]="diaryForm.invalid"
+    >
+      Add
+    </button>
+  </div>
+</form>
