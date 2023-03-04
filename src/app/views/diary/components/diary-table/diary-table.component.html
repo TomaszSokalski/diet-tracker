@@ -1,3 +1,5 @@
+<app-loader *ngIf="loading$ | async"></app-loader>
+
 <table mat-table [dataSource]="diary$" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>Id</th>
