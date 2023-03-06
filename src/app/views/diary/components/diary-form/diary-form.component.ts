@@ -44,6 +44,10 @@ export class DiaryFormComponent implements OnInit {
     return this.diaryForm.get('weight') as FormControl;
   }
 
+  get foods(): FormControl {
+    return this.diaryForm.get('foods') as FormControl;
+  }
+
   ngOnInit(): void {
     this.foodListState.getFoods();
     this.date.setValue(this.today);
@@ -57,6 +61,8 @@ export class DiaryFormComponent implements OnInit {
     this.diaryService.postFoodToDiary(payload).subscribe(() => {
       this.diaryState.getDiary(payload.date);
     });
+
+    this.resetInputs();
   }
 
   onDateChange(event: MatDatepickerInputEvent<string>): void {
@@ -87,5 +93,12 @@ export class DiaryFormComponent implements OnInit {
         },
       ],
     };
+  }
+
+  private resetInputs(): void {
+    this.weight.reset();
+    this.weight.setErrors(null);
+    this.foods.reset();
+    this.foods.setErrors(null);
   }
 }
