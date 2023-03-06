@@ -23,7 +23,7 @@ export class DiaryFormComponent implements OnInit {
   maxDate = new Date();
   diaryForm = this.fb.group({
     date: ['', [Validators.required]],
-    foodId: ['', [Validators.required]],
+    foods: ['', [Validators.required]],
     weight: ['', [Validators.required, Validators.min(0)]],
   });
 
@@ -70,7 +70,12 @@ export class DiaryFormComponent implements OnInit {
     return {
       id: value.id,
       date: formattedDate!,
-      foods: value.foodId,
+      foods: [
+        {
+          id: value.foods,
+          weight: value.weight,
+        },
+      ],
     };
   }
 }
