@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Diary } from 'src/app/interfaces/diary.interface';
+import { Food } from 'src/app/interfaces/food.interface';
 import { FoodListState } from 'src/app/views/foods-list/state/food-list.state';
 import { DiaryService } from '../../services/diary.service';
 import { DiaryState } from '../../state/diary.state';
@@ -23,7 +24,7 @@ export class DiaryFormComponent implements OnInit {
   maxDate = new Date();
   diaryForm = this.fb.group({
     date: ['', [Validators.required]],
-    foodId: ['', [Validators.required]],
+    foods: ['', [Validators.required]],
     weight: ['', [Validators.required, Validators.min(0)]],
   });
 
@@ -39,6 +40,14 @@ export class DiaryFormComponent implements OnInit {
     return this.diaryForm.get('date') as FormControl;
   }
 
+  get weight(): FormControl {
+    return this.diaryForm.get('weight') as FormControl;
+  }
+
+  get foods(): FormControl {
+    return this.diaryForm.get('foods') as FormControl;
+  }
+
   ngOnInit(): void {
     this.foodListState.getFoods();
     this.date.setValue(this.today);
@@ -52,6 +61,8 @@ export class DiaryFormComponent implements OnInit {
     this.diaryService.postFoodToDiary(payload).subscribe(() => {
       this.diaryState.getDiary(payload.date);
     });
+
+    this.resetInputs();
   }
 
   onDateChange(event: MatDatepickerInputEvent<string>): void {
@@ -63,6 +74,11 @@ export class DiaryFormComponent implements OnInit {
     this.diaryState.getDiary(transformedData!);
   }
 
+  getFoodWeight(event: Food): void {
+    const { weight } = event;
+    this.weight.setValue(weight);
+  }
+
   private diaryPayload(diaryForm: FormGroup): Diary {
     const date = this.date;
     const formattedDate = this.datePipe.transform(date.value, 'yyyy-MM-dd');
@@ -70,7 +86,19 @@ export class DiaryFormComponent implements OnInit {
     return {
       id: value.id,
       date: formattedDate!,
-      foods: value.foodId,
+      foods: [
+        {
+          id: value.foods.id,
+          weight: value.weight,
+        },
+      ],
     };
+  }
+
+  private resetInputs(): void {
+    this.weight.reset();
+    this.weight.setErrors(null);
+    this.foods.reset();
+    this.foods.setErrors(null);
   }
 }

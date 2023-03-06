@@ -5,7 +5,6 @@ import { filter, Subject, takeUntil } from 'rxjs';
 import { Diary } from 'src/app/interfaces/diary.interface';
 import { FoodnamePipe } from 'src/app/shared/pipes/foodname.pipe';
 import { FoodListState } from 'src/app/views/foods-list/state/food-list.state';
-
 import { DISPLAYED_COLUMNS } from '../../displayed-columns.const';
 import { DiaryState } from '../../state/diary.state';
 
@@ -55,7 +54,7 @@ export class DiaryTableComponent implements OnInit {
     this.error$
       .pipe(
         takeUntil(this.destroy$),
-        filter((v) => v !== null)
+        filter((e) => e !== null)
       )
       .subscribe((err) => {
         this.snackbar.open(err?.message ?? 'Error');
