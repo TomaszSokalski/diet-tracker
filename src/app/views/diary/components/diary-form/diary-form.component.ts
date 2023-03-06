@@ -70,7 +70,7 @@ export class DiaryFormComponent implements OnInit {
     return {
       id: value.id,
       date: formattedDate!,
-      foodIds: value.foodId,
+      foods: value.foodId,
     };
   }
 }
