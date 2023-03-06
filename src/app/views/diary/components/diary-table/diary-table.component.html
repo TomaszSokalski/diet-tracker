@@ -5,8 +5,14 @@
   </ng-container>
 
   <ng-container matColumnDef="foodIds">
-    <th mat-header-cell *matHeaderCellDef>FoodIds</th>
-    <td mat-cell *matCellDef="let diary">{{ diary.foodIds }}</td>
+    <th mat-header-cell *matHeaderCellDef>Foods</th>
+    <td mat-cell *matCellDef="let diary">
+      <ul>
+        <li *ngFor="let food of diary.foods">
+          {{ (food.id | foodName: foods$) | async }}id {{ food.weight }}g
+        </li>
+      </ul>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="date">
