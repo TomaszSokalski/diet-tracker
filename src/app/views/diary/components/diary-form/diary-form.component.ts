@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Diary } from 'src/app/interfaces/diary.interface';
+import { Food } from 'src/app/interfaces/food.interface';
 import { FoodListState } from 'src/app/views/foods-list/state/food-list.state';
 import { DiaryService } from '../../services/diary.service';
 import { DiaryState } from '../../state/diary.state';
@@ -39,6 +40,10 @@ export class DiaryFormComponent implements OnInit {
     return this.diaryForm.get('date') as FormControl;
   }
 
+  get weight(): FormControl {
+    return this.diaryForm.get('weight') as FormControl;
+  }
+
   ngOnInit(): void {
     this.foodListState.getFoods();
     this.date.setValue(this.today);
@@ -63,6 +68,11 @@ export class DiaryFormComponent implements OnInit {
     this.diaryState.getDiary(transformedData!);
   }
 
+  getFoodWeight(event: Food): void {
+    const { weight } = event;
+    this.weight.setValue(weight);
+  }
+
   private diaryPayload(diaryForm: FormGroup): Diary {
     const date = this.date;
     const formattedDate = this.datePipe.transform(date.value, 'yyyy-MM-dd');
@@ -72,7 +82,7 @@ export class DiaryFormComponent implements OnInit {
       date: formattedDate!,
       foods: [
         {
-          id: value.foods,
+          id: value.foods.id,
           weight: value.weight,
         },
       ],

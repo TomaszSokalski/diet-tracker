@@ -25,9 +25,9 @@
   <div class="form-item">
     <mat-form-field appearance="outline">
       <mat-label>Choose food</mat-label>
-      <mat-select formControlName="foods" required>
+      <mat-select formControlName="foods" required (selectionChange)="getFoodWeight($event.value)">
         <mat-option>- Clear -</mat-option>
-        <mat-option *ngFor="let food of foods$ | async" [value]="food.id">
+        <mat-option *ngFor="let food of foods$ | async" [value]="food">
           {{ food.name }}
         </mat-option>
       </mat-select>
