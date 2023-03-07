@@ -16,7 +16,7 @@
           </li>
         </ul>
       </td>
-      <td mat-footer-cell *matFooterCellDef>Total calories</td>
+      <td mat-footer-cell *matFooterCellDef>Total weight</td>
     </ng-container>
 
     <ng-container matColumnDef="weight">
@@ -26,7 +26,9 @@
           <li *ngFor="let food of diary.foods">{{ food.weight }}g</li>
         </ul>
       </td>
-      <td mat-footer-cell *matFooterCellDef></td>
+      <td mat-footer-cell *matFooterCellDef>
+        {{ calculateWeightTotal(diary$ | async) }}g
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="date">

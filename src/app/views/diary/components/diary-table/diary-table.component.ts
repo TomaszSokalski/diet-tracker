@@ -45,6 +45,11 @@ export class DiaryTableComponent implements OnInit {
     this.diaryState.deleteDiary(diary.id, diary.date);
   }
 
+  calculateWeightTotal(diary: Diary[] | null): number {
+    const foods = diary?.map(el => el.foods);
+    return foods!.flat().reduce((acc, food) => acc + food.weight, 0)
+  }
+
   private getInitialValue(): void {
     let date = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
     this.diaryState.getDiary(date!);
