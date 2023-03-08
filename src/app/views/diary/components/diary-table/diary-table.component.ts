@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { filter, takeUntil } from 'rxjs';
+import { Destroyable } from 'src/app/components/destroyable';
 import { Diary } from 'src/app/interfaces/diary.interface';
 import { Food } from 'src/app/interfaces/food.interface';
 import { FoodnamePipe } from 'src/app/shared/pipes/foodname.pipe';
@@ -15,7 +16,7 @@ import { DiaryState } from '../../state/diary.state';
   styleUrls: ['./diary-table.component.scss'],
   providers: [FoodnamePipe],
 })
-export class DiaryTableComponent implements OnInit {
+export class DiaryTableComponent extends Destroyable implements OnInit {
   displayedColumns = DISPLAYED_COLUMNS;
 
   foods$ = this.foodListState.food$;
@@ -23,23 +24,18 @@ export class DiaryTableComponent implements OnInit {
   loading$ = this.diaryState.loading$;
   error$ = this.diaryState.error$;
 
-  private destroy$ = new Subject<void>();
-
   constructor(
     private diaryState: DiaryState,
     private foodListState: FoodListState,
     private datePipe: DatePipe,
     private snackbar: MatSnackBar
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getInitialValue();
     this.listenToErrors();
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.unsubscribe();
   }
 
   deleteFoodInDiary(diary: Diary): void {
@@ -76,7 +72,7 @@ export class DiaryTableComponent implements OnInit {
   private listenToErrors() {
     this.error$
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntil(this.destroyed$),
         filter((e) => e !== null)
       )
       .subscribe((err) => {

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, finalize, take } from 'rxjs';
-import { DiaryResponse } from 'src/app/interfaces/diary-response.interface';
+import { BehaviorSubject, take } from 'rxjs';
 import { Food } from 'src/app/interfaces/food.interface';
 import { FoodListService } from '../services/food-list.service';
 
@@ -57,19 +56,19 @@ export class FoodListState {
   }
 
   deleteFood(id: string): void {
+    this.updateLoading(true);
+
     this.foodService
       .deleteFood(id)
-      .pipe(
-        finalize(() => {
-          this.updateLoading(true);
-        })
-      )
       .subscribe({
         next: () => {
           this.getFoods();
         },
         error: (error) => {
           this.errorSource.next(error);
+        },
+        complete: () => {
+          this.updateLoading(false);
         },
       });
   }
