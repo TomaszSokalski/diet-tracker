@@ -24,7 +24,7 @@ export class FoodsListComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private foodListState: FoodListState,
     private snackbar: MatSnackBar,
   ) {}
@@ -49,6 +49,7 @@ export class FoodsListComponent implements OnInit, OnDestroy {
 
   deleteFood(id: string): void {
     this.foodListState.deleteFood(id);
+    this.showSnackBar('Food deleted successfully');
   }
 
   editFood(id: string): void {
@@ -60,6 +61,7 @@ export class FoodsListComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe(() => {
         this.getUpdatedFoods();
+        this.showSnackBar('Food updated successfully');
       });
   }
 
@@ -71,6 +73,7 @@ export class FoodsListComponent implements OnInit, OnDestroy {
       .afterClosed()
       .subscribe(() => {
         this.getUpdatedFoods();
+        this.showSnackBar('Food added successfully');
       });
   }
 
@@ -92,7 +95,11 @@ export class FoodsListComponent implements OnInit, OnDestroy {
         filter((e) => e !== null)
       )
       .subscribe((err) => {
-        this.snackbar.open(err?.message ?? 'Error');
+        this.showSnackBar(err?.message ?? 'Error');
       });
+  }
+
+  private showSnackBar(message: string) {
+    this.snackbar.open(message);
   }
 }
