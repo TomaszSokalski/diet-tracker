@@ -16,7 +16,7 @@
           </li>
         </ul>
       </td>
-      <td mat-footer-cell *matFooterCellDef>Total weight</td>
+      <td mat-footer-cell *matFooterCellDef>Total</td>
     </ng-container>
 
     <ng-container matColumnDef="weight">
@@ -27,7 +27,7 @@
         </ul>
       </td>
       <td mat-footer-cell *matFooterCellDef>
-        {{ calculateWeightTotal(diary$ | async) }}g
+        Weight: {{ calculateTotalWeight(diary$ | async) }}g
       </td>
     </ng-container>
 
@@ -36,7 +36,7 @@
       <td mat-cell *matCellDef="let diary">
         {{ diary.date | date : "dd.MM.yyyy" }}
       </td>
-      <td mat-footer-cell *matFooterCellDef></td>
+      <td mat-footer-cell *matFooterCellDef>Calories: {{ calculateTotalCalories((diary$ | async), (foods$ | async)) }}kcal</td>
     </ng-container>
 
     <ng-container matColumnDef="delete">
