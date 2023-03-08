@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { debounceTime, startWith, Subject, takeUntil } from 'rxjs';
+import { Food } from 'src/app/interfaces/food.interface';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 import { DISPLAYED_COLUMNS } from './displayed-columns.const';
 import { FoodListState } from './state/food-list.state';
@@ -26,6 +27,11 @@ export class FoodsListComponent implements OnInit, OnDestroy {
       .subscribe((formValue) => {
         return this.foodListState.searchFoods(formValue!);
       });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.unsubscribe();
   }
 
   deleteFood(id: string): void {
@@ -59,15 +65,10 @@ export class FoodsListComponent implements OnInit, OnDestroy {
     this.foodListState.getFoods();
   }
 
-  showFoodDetails(id: string): void {
+  showFoodDetails(food: Food): void {
     this.dialog.open(DialogComponent, {
       width: '50%',
-      data: { id, isReadonly: true },
+      data: { food, isReadonly: true },
     });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.unsubscribe();
   }
 }
