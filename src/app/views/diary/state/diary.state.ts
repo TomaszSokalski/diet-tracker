@@ -14,7 +14,7 @@ export class DiaryState {
   private loadingSource = new BehaviorSubject<boolean>(true);
   loading$ = this.loadingSource.asObservable();
 
-  private errorSource = new BehaviorSubject<any>(null);
+  private errorSource = new BehaviorSubject<Error | null>(null);
   error$ = this.errorSource.asObservable();
 
   constructor(private diaryService: DiaryService) {}
@@ -24,9 +24,10 @@ export class DiaryState {
     const observer = {
       next: (response: DiaryResponse) => {
         this.diarySource.next(response.data);
+        this.errorSource.next(null);
       },
-      error: (err: any) => {
-        this.errorSource.next(err);
+      error: (error: Error) => {
+        this.errorSource.next(error);
       },
       complete: () => {
         this.updateLoading(false);
@@ -39,19 +40,27 @@ export class DiaryState {
   }
 
   deleteDiary(id: string, date: string): void {
+    this.updateLoading(true);
     this.diaryService
       .deleteDiary(id)
       .pipe(
         finalize(() => {
-          this.updateLoading(true);
+          this.updateLoading(false);
         })
       )
-      .subscribe(() => {
-        this.getDiary(date);
+      .subscribe({
+        next: () => {
+          this.getDiary(date);
+        },
+        error: (error: Error) => {
+          this.errorSource.next(error);
+        },
       });
   }
 
   private updateLoading(value: boolean): void {
     this.loadingSource.next(value);
   }
+
+  
 }

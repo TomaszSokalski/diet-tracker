@@ -72,6 +72,5 @@ const MODULES: any[] = [
   declarations: [LoaderComponent, NutriScoreComponent],
   imports: [CommonModule, MODULES],
   exports: [MODULES, MatNativeDateModule, LoaderComponent, NutriScoreComponent],
-  providers: [],
 })
 export class AngularMaterialModule {}

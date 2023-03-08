@@ -1,5 +1,7 @@
+import { Food } from "./food.interface";
+
 export interface Diary {
-    id: string;
-    foodIds: string;
-    date: string;
+  id: string;
+  foods: Food[];
+  date: string;
 }

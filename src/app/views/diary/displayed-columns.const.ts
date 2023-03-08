@@ -1,1 +1,1 @@
-export const DISPLAYED_COLUMNS: string[] = ['id', 'foodIds', 'date', 'delete'];
+export const DISPLAYED_COLUMNS: string[] = ['name', 'weight', 'date', 'delete'];
