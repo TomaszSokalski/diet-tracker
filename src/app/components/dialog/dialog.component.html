@@ -1,9 +1,12 @@
 <ng-container *ngIf="data?.isReadonly; else form">
   <ul class="food-list">
-    <li>Name: {{ data.food.name }}</li>
-    <li>Weight: {{ data.food.weight }}</li>
-    <li>CaloriesPer100g: {{ data.food.caloriesPer100g }}</li>
-    <li *ngIf="data.food.nutriScore">NutriScore: {{ data.food.nutriScore }}</li>
+    <li><b>Name:</b> {{ data.food.name }}</li>
+    <li><b>Weight:</b> {{ data.food.weight }}g</li>
+    <li><b>CaloriesPer100g:</b> {{ data.food.caloriesPer100g }}kcal</li>
+    <li *ngIf="data.food.nutriScore">
+      <b>NutriScore:</b
+      ><app-nutri-score [nutriScore]="data.food.nutriScore"></app-nutri-score>
+    </li>
   </ul>
   <div class="button__wrapper">
     <button
