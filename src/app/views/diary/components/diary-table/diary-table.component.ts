@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, takeUntil } from 'rxjs';
-import { Destroyable } from 'src/app/components/destroyable';
+import { UnsubscribeComponent } from 'src/app/components/unsubscribe';
 import { Diary } from 'src/app/interfaces/diary.interface';
 import { Food } from 'src/app/interfaces/food.interface';
 import { FoodnamePipe } from 'src/app/shared/pipes/foodname.pipe';
@@ -16,7 +16,10 @@ import { DiaryState } from '../../state/diary.state';
   styleUrls: ['./diary-table.component.scss'],
   providers: [FoodnamePipe],
 })
-export class DiaryTableComponent extends Destroyable implements OnInit {
+export class DiaryTableComponent
+  extends UnsubscribeComponent
+  implements OnInit
+{
   displayedColumns = DISPLAYED_COLUMNS;
 
   foods$ = this.foodListState.food$;
@@ -43,7 +46,7 @@ export class DiaryTableComponent extends Destroyable implements OnInit {
   }
 
   calculateTotalCalories(diary: Diary[] | null, food: Food[] | null): number {
-    const foodsInDiary = diary?.map((el) => el.foods).flat();
+    const foodsInDiary = diary!.map((el) => el.foods).flat();
     const getCompareFoods = food!.filter(({ id: id1 }) =>
       foodsInDiary!.some(({ id: id2 }) => id1 === id2)
     );
@@ -72,7 +75,7 @@ export class DiaryTableComponent extends Destroyable implements OnInit {
   private listenToErrors() {
     this.error$
       .pipe(
-        takeUntil(this.destroyed$),
+        takeUntil(this.destroy$),
         filter((e) => e !== null)
       )
       .subscribe((err) => {

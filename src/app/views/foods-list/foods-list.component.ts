@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { debounceTime, filter, startWith, takeUntil } from 'rxjs';
-import { Destroyable } from 'src/app/components/destroyable';
+import { UnsubscribeComponent } from 'src/app/components/unsubscribe';
 import { Food } from 'src/app/interfaces/food.interface';
 import { DialogComponent } from '../../components/dialog/dialog.component';
 import { DISPLAYED_COLUMNS } from './displayed-columns.const';
@@ -13,7 +13,7 @@ import { FoodListState } from './state/food-list.state';
   templateUrl: './foods-list.component.html',
   styleUrls: ['./foods-list.component.scss'],
 })
-export class FoodsListComponent extends Destroyable implements OnInit {
+export class FoodsListComponent extends UnsubscribeComponent implements OnInit {
   displayedColumns = DISPLAYED_COLUMNS;
 
   search = new FormControl('');
@@ -37,7 +37,7 @@ export class FoodsListComponent extends Destroyable implements OnInit {
 
   initialValue(): void {
     this.search.valueChanges
-      .pipe(takeUntil(this.destroyed$), startWith(''), debounceTime(500))
+      .pipe(takeUntil(this.destroy$), startWith(''), debounceTime(500))
       .subscribe((formValue) => {
         return this.foodListState.searchFoods(formValue!);
       });
@@ -87,7 +87,7 @@ export class FoodsListComponent extends Destroyable implements OnInit {
   private listenToErrors() {
     this.error$
       .pipe(
-        takeUntil(this.destroyed$),
+        takeUntil(this.destroy$),
         filter((e) => e !== null)
       )
       .subscribe((err) => {
