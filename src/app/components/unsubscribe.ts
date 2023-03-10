@@ -7,6 +7,6 @@ export abstract class UnsubscribeComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next();
-    this.destroy$.complete();
+    this.destroy$.complete()
   }
 }
