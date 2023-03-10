@@ -21,7 +21,7 @@
 </ng-container>
 
 <ng-template #form>
-  <form [formGroup]="addForm" (ngSubmit)="addFood()">
+  <form [formGroup]="addForm">
     <div>
       <mat-form-field
         class="mat-form-field"
@@ -93,7 +93,7 @@
         mat-raised-button
         color="primary"
         [disabled]="addForm.invalid"
-        type="submit"
+        (click)="addFood()"
       >
         Save
       </button>

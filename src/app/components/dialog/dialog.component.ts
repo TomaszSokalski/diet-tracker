@@ -51,7 +51,7 @@ export class DialogComponent implements OnInit {
   private setFormValue() {
     if (this.id) {
       this.foodService.getFood(this.id).subscribe((food) => {
-           this.addForm.patchValue(food);
+           this.addForm.patchValue(food); // change service to state
       });
     }
   }
