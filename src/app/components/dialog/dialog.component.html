@@ -1,13 +1,27 @@
-<form [formGroup]="addForm">
-  <div *ngIf="data?.isReadonly; else form">
-    <ul class="food-list">
-      <li>Name: {{ (food$ | async)?.name }}</li>
-      <li>Weight: {{ (food$ | async)?.weight }}</li>
-      <li>CaloriesPer100g: {{ (food$ | async)?.caloriesPer100g }}</li>
-      <li>NutriScore: {{ (food$ | async)?.nutriScore ?? "Lack" }}</li>
-    </ul>
+<ng-container *ngIf="data?.isReadonly; else form">
+  <ul class="food-list">
+    <li><b>Name:</b> {{ data.food.name }}</li>
+    <li><b>Weight:</b> {{ data.food.weight }}g</li>
+    <li><b>CaloriesPer100g:</b> {{ data.food.caloriesPer100g }}kcal</li>
+    <li *ngIf="data.food.nutriScore">
+      <b>NutriScore:</b
+      ><app-nutri-score [nutriScore]="data.food.nutriScore"></app-nutri-score>
+    </li>
+  </ul>
+  <div class="button__wrapper">
+    <button
+      style="align-items: left"
+      mat-raised-button
+      color="warn"
+      (click)="close()"
+    >
+      Close
+    </button>
   </div>
-  <ng-template #form>
+</ng-container>
+
+<ng-template #form>
+  <form [formGroup]="addForm" (ngSubmit)="addFood()">
     <div>
       <mat-form-field
         class="mat-form-field"
@@ -36,6 +50,7 @@
           min="0"
           autocomplete="off"
         />
+        <span matSuffix>g</span>
         <mat-error>Weight is invalid</mat-error>
       </mat-form-field>
     </div>
@@ -50,6 +65,7 @@
           min="0"
           autocomplete="off"
         />
+        <span matSuffix>kcal/100g</span>
       </mat-form-field>
     </div>
     <div>
@@ -72,23 +88,23 @@
         </mat-select>
       </mat-form-field>
     </div>
-  </ng-template>
-  <div mat-dialog-action [align]="'end'">
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="addForm.invalid || !!data?.isReadonly"
-      (click)="addFood()"
-    >
-      Save
-    </button>
-    <button
-      style="margin-left: 12px"
-      mat-raised-button
-      color="warn"
-      (click)="close()"
-    >
-      Close
-    </button>
-  </div>
-</form>
+    <div mat-dialog-action [align]="'end'">
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="addForm.invalid"
+        type="submit"
+      >
+        Save
+      </button>
+      <button
+        style="margin-left: 12px"
+        mat-raised-button
+        color="warn"
+        (click)="close()"
+      >
+        Close
+      </button>
+    </div>
+  </form>
+</ng-template>

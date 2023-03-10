@@ -20,8 +20,8 @@ export class DialogComponent implements OnInit {
   food$ = new Subject<Food>();
   addForm = this.fb.group({
     name: ['', [Validators.required]],
-    weight: ['', [Validators.required, Validators.min(0)]],
-    caloriesPer100g: ['', [Validators.min(0)]],
+    weight: [0, [Validators.required, Validators.min(0)]],
+    caloriesPer100g: [0, [Validators.min(0)]],
     nutriScore: [''],
     hasNutriScore: [false],
   });
@@ -51,9 +51,7 @@ export class DialogComponent implements OnInit {
   private setFormValue() {
     if (this.id) {
       this.foodService.getFood(this.id).subscribe((food) => {
-        this.data.isReadonly
-          ? this.food$.next(food)
-          : this.addForm.patchValue(food as any);
+           this.addForm.patchValue(food);
       });
     }
   }

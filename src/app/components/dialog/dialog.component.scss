@@ -4,4 +4,18 @@
 
 .food-list {
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    justify-content: space-between;
+}
+
+.food-list > li {
+    padding-bottom: 3px;
+}
+
+.button__wrapper {
+    display: flex;
+    justify-content: end;
 }

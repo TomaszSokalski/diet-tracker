@@ -1,8 +1,8 @@
-<div class="container">
+<mat-card>
   <app-loader *ngIf="loading$ | async"></app-loader>
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Search Food</mat-label>
-    <input matInput [formControl]="search" #input />
+    <input matInput [formControl]="search"/>
   </mat-form-field>
   <div class="mat-elevation-z8">
     <table
@@ -69,7 +69,7 @@
       <tr
         mat-row
         *matRowDef="let row; columns: displayedColumns"
-        (click)="showFoodDetails(row.id)"
+        (click)="showFoodDetails(row)"
       ></tr>
     </table>
 
@@ -83,4 +83,4 @@
       aria-label="Select page of foods"
     ></mat-paginator>
   </div>
-</div>
+</mat-card>
