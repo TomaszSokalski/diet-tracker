@@ -1,12 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Diary } from '@app/interfaces/diary.interface';
+import { Food } from '@app/interfaces/food.interface';
+import { UnsubscribeComponent } from '@app/shared/utils/unsubscribe';
+import { FoodListState } from '@app/views/foods-list/state/food-list.state';
+import { FoodnamePipe } from '@shared/pipes/foodname.pipe';
 import { filter, takeUntil } from 'rxjs';
-import { UnsubscribeComponent } from 'src/app/components/unsubscribe';
-import { Diary } from 'src/app/interfaces/diary.interface';
-import { Food } from 'src/app/interfaces/food.interface';
-import { FoodnamePipe } from 'src/app/shared/pipes/foodname.pipe';
-import { FoodListState } from 'src/app/views/foods-list/state/food-list.state';
 import { DISPLAYED_COLUMNS } from '../../displayed-columns.const';
 import { DiaryState } from '../../state/diary.state';
 

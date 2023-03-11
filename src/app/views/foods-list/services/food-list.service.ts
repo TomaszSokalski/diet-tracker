@@ -1,9 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Food } from '@app/interfaces/food.interface';
+import { environment } from '@env/environment';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Food } from '../../../interfaces/food.interface';
-import { Response } from '../../../interfaces/response.interface';
 
 @Injectable({
   providedIn: 'root',
