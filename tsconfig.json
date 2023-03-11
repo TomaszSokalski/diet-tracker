@@ -19,12 +19,21 @@
     "target": "es2020",
     "module": "es2020",
     "lib": ["es2020", "dom"],
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@env/*": ["src/environments/*"],
+      "@views/*": ["src/app/views/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@utils/(.*)": ["/src/app/shared/utils/*"],
+      "@interfaces/(.*)": ["<rootDir>/src/app/interfaces/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  
 }
