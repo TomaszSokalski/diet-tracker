@@ -92,7 +92,7 @@
       <button
         mat-raised-button
         color="primary"
-        [disabled]="addForm.invalid"
+        [disabled]="addForm.invalid || addForm.pristine"
         (click)="addFood()"
       >
         Save
