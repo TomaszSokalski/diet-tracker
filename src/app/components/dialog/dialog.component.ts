@@ -8,6 +8,7 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { Food } from 'src/app/interfaces/food.interface';
+import { NutriScore } from 'src/app/shared/components/nutri-score/nutri-score.enum';
 import { DialogData } from 'src/app/views/foods-list/dialog-data.interface';
 import { FoodListService } from '../../views/foods-list/services/food-list.service';
 
@@ -25,6 +26,7 @@ export class DialogComponent implements OnInit {
     nutriScore: [''],
     hasNutriScore: [false],
   });
+  readonly nutriscore = Object.keys(NutriScore);
 
   private id = this.data?.id;
 
@@ -51,7 +53,7 @@ export class DialogComponent implements OnInit {
   private setFormValue() {
     if (this.id) {
       this.foodService.getFood(this.id).subscribe((food) => {
-           this.addForm.patchValue(food); // change service to state
+        this.addForm.patchValue(food); // change service to state
       });
     }
   }

@@ -80,11 +80,9 @@
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>NutriScore</mat-label>
         <mat-select formControlName="nutriScore">
-          <mat-option value="A">A</mat-option>
-          <mat-option value="B">B</mat-option>
-          <mat-option value="C">C</mat-option>
-          <mat-option value="D">D</mat-option>
-          <mat-option value="E">E</mat-option>
+          <mat-option *ngFor="let score of nutriscore" [value]="score">{{
+            score
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
