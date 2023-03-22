@@ -1,20 +1,19 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, takeUntil } from 'rxjs';
-import { UnsubscribeComponent } from 'src/app/components/unsubscribe';
-import { Diary } from 'src/app/interfaces/diary.interface';
-import { Food } from 'src/app/interfaces/food.interface';
-import { FoodnamePipe } from 'src/app/shared/pipes/foodname.pipe';
-import { FoodListState } from 'src/app/views/foods-list/state/food-list.state';
-import { DISPLAYED_COLUMNS } from '../../displayed-columns.const';
-import { DiaryState } from '../../state/diary.state';
 
+import { Diary } from '@interfaces/diary.interface';
+import { Food } from '@interfaces/food.interface';
+import { UnsubscribeComponent } from '@shared/unsubscribe';
+import { FoodListState } from '@views/foods-list/state/food-list.state';
+import { DiaryState } from '@diary/state';
+
+import { DISPLAYED_COLUMNS } from '../../displayed-columns.const';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-diary-table',
   templateUrl: './diary-table.component.html',
   styleUrls: ['./diary-table.component.scss'],
-  providers: [FoodnamePipe],
 })
 export class DiaryTableComponent
   extends UnsubscribeComponent
@@ -22,7 +21,7 @@ export class DiaryTableComponent
 {
   displayedColumns = DISPLAYED_COLUMNS;
 
-  foods$ = this.foodListState.food$;
+  foods$ = this.foodListState.foods$;
   diary$ = this.diaryState.diary$;
   loading$ = this.diaryState.loading$;
   error$ = this.diaryState.error$;

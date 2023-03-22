@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AuthGuard } from './shared/auth/auth.guard';
+import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,6 +23,8 @@ const routes: Routes = [
       import('./views/exercises/exercises.module').then(
         (m) => m.ExercisesModule
       ),
+    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
   },
   {
     path: 'home',

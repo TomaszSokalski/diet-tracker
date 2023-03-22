@@ -10,7 +10,7 @@ export class NutriScoreComponent {
   @Input() nutriScore: NutriScore;
 
   nutriScoreEnum = NutriScore;
-  nutriScoreToColor: any = {
+  nutriScoreToColor = {
     [this.nutriScoreEnum.A]: 'green',
     [this.nutriScoreEnum.B]: 'lightgreen',
     [this.nutriScoreEnum.C]: 'yellow',

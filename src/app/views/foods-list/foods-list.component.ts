@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { debounceTime, filter, startWith, takeUntil } from 'rxjs';
+
+import { Food } from '@interfaces/food.interface';
+import { UnsubscribeComponent } from '@unsubscribe';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
+import { FoodListState } from './state/food-list.state';
+
+import { DISPLAYED_COLUMNS } from './displayed-columns.const';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { debounceTime, filter, startWith, takeUntil } from 'rxjs';
-import { UnsubscribeComponent } from 'src/app/components/unsubscribe';
-import { Food } from 'src/app/interfaces/food.interface';
-import { DialogComponent } from '../../components/dialog/dialog.component';
-import { DISPLAYED_COLUMNS } from './displayed-columns.const';
-import { FoodListState } from './state/food-list.state';
 
 @Component({
   templateUrl: './foods-list.component.html',
@@ -15,10 +17,9 @@ import { FoodListState } from './state/food-list.state';
 })
 export class FoodsListComponent extends UnsubscribeComponent implements OnInit {
   displayedColumns = DISPLAYED_COLUMNS;
-
   search = new FormControl('');
 
-  foods$ = this.foodListState.food$;
+  foods$ = this.foodListState.foods$;
   loading$ = this.foodListState.loading$;
   error$ = this.foodListState.error$;
 
@@ -57,7 +58,6 @@ export class FoodsListComponent extends UnsubscribeComponent implements OnInit {
       .afterClosed()
       .subscribe(() => {
         this.getUpdatedFoods();
-        this.showSnackBar('Food updated successfully');
       });
   }
 
@@ -69,7 +69,6 @@ export class FoodsListComponent extends UnsubscribeComponent implements OnInit {
       .afterClosed()
       .subscribe(() => {
         this.getUpdatedFoods();
-        this.showSnackBar('Food added successfully');
       });
   }
 

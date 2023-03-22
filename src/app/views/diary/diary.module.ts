@@ -1,28 +1,27 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@shared/shared.module';
+
+import { FoodnamePipe } from '@shared/pipes/foodname.pipe';
+import { DiaryFormComponent } from './components/diary-form/diary-form.component';
+import { DiaryTableComponent } from './components/diary-table/diary-table.component';
 import { DiaryRoutingModule } from './diary-routing.module';
 import { DiaryComponent } from './diary.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularMaterialModule } from 'src/app/shared/material.module';
-import { DiaryTableComponent } from './components/diary-table/diary-table.component';
-import { DiaryFormComponent } from './components/diary-form/diary-form.component';
-import { FoodnamePipe } from 'src/app/shared/pipes/foodname.pipe';
-
-
 
 @NgModule({
   declarations: [
+    FoodnamePipe,
     DiaryComponent,
     DiaryTableComponent,
     DiaryFormComponent,
-    FoodnamePipe,
   ],
   imports: [
     CommonModule,
     DiaryRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularMaterialModule,
+    SharedModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

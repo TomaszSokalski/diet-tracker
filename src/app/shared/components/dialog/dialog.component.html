@@ -12,7 +12,7 @@
     <button
       style="align-items: left"
       mat-raised-button
-      color="warn"
+      color="primary"
       (click)="close()"
     >
       Close
@@ -80,11 +80,9 @@
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>NutriScore</mat-label>
         <mat-select formControlName="nutriScore">
-          <mat-option value="A">A</mat-option>
-          <mat-option value="B">B</mat-option>
-          <mat-option value="C">C</mat-option>
-          <mat-option value="D">D</mat-option>
-          <mat-option value="E">E</mat-option>
+          <mat-option *ngFor="let score of nutriScores" [value]="score">{{
+            score
+          }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -92,7 +90,7 @@
       <button
         mat-raised-button
         color="primary"
-        [disabled]="addForm.invalid"
+        [disabled]="addForm.invalid || addForm.pristine"
         (click)="addFood()"
       >
         Save

@@ -1,5 +1,5 @@
-import { NutriScore } from "../shared/components/nutri-score/nutri-score.enum";
-import { Tag } from "./tag.interface";
+import { NutriScore } from '../components/nutri-score/nutri-score.enum';
+import { Tag } from './tag.interface';
 
 export interface Food {
   id: string;
@@ -8,4 +8,4 @@ export interface Food {
   weight: number;
   nutriScore?: NutriScore;
   tags?: Tag['id'][];
-};
+}

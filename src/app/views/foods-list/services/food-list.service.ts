@@ -1,15 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Food } from '../../../interfaces/food.interface';
-import { Response } from '../../../interfaces/response.interface';
+
+import { Food } from '@interfaces/food.interface';
+import { Response } from '@interfaces/response.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FoodListService {
-  private API_URL = environment.baseUrl;
+  private API_URL = 'http://localhost:8080/api';
 
   constructor(private httpClient: HttpClient) {}
 

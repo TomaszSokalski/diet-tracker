@@ -5,19 +5,25 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { takeUntil } from 'rxjs';
+
+import { Food } from '@interfaces/food.interface';
+import { UnsubscribeComponent } from '@unsubscribe';
+import { DialogData } from '@views/foods-list/dialog-data.interface';
+import { FoodListService } from '@views/foods-list/services/food-list.service';
+import { FoodListState } from '@views/foods-list/state/food-list.state';
+import { NUTRI_SCORE } from './nutri-score.const';
+
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
-import { Food } from 'src/app/interfaces/food.interface';
-import { DialogData } from 'src/app/views/foods-list/dialog-data.interface';
-import { FoodListService } from '../../views/foods-list/services/food-list.service';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
 })
-export class DialogComponent implements OnInit {
-  food$ = new Subject<Food>();
+export class DialogComponent extends UnsubscribeComponent implements OnInit {
+  food$ = this.foodListState.food$;
+  nutriScores = NUTRI_SCORE;
   addForm = this.fb.group({
     name: ['', [Validators.required]],
     weight: [0, [Validators.required, Validators.min(0)]],
@@ -29,11 +35,14 @@ export class DialogComponent implements OnInit {
   private id = this.data?.id;
 
   constructor(
+    public dialogRef: MatDialogRef<DialogComponent>,
+    private foodListState: FoodListState,
     private foodService: FoodListService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialogRef: MatDialogRef<DialogComponent>
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.setFormValue();
@@ -46,14 +55,6 @@ export class DialogComponent implements OnInit {
         nutriScore?.disable();
       }
     });
-  }
-
-  private setFormValue() {
-    if (this.id) {
-      this.foodService.getFood(this.id).subscribe((food) => {
-           this.addForm.patchValue(food); // change service to state
-      });
-    }
   }
 
   get hasNutriScore(): FormControl {
@@ -75,6 +76,16 @@ export class DialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  private setFormValue() {
+    if (this.id) {
+      this.foodListState.getFoodById(this.id);
+      this.food$.pipe(takeUntil(this.destroy$)).subscribe((food) => {
+        this.addForm.patchValue(food);
+        this.addForm.markAsPristine();
+      });
+    }
   }
 
   private createPayLoad(addForm: FormGroup): Food {

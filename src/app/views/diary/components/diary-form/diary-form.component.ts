@@ -6,12 +6,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+
+import { DiaryService } from '@diary/service';
+import { DiaryState } from '@diary/state';
+import { Diary } from '@interfaces/diary.interface';
+import { Food } from '@interfaces/food.interface';
+import { FoodListState } from '@views/foods-list/state/food-list.state';
+
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { Diary } from 'src/app/interfaces/diary.interface';
-import { Food } from 'src/app/interfaces/food.interface';
-import { FoodListState } from 'src/app/views/foods-list/state/food-list.state';
-import { DiaryService } from '../../services/diary.service';
-import { DiaryState } from '../../state/diary.state';
 
 @Component({
   selector: 'app-diary-form',
@@ -19,7 +21,7 @@ import { DiaryState } from '../../state/diary.state';
   styleUrls: ['./diary-form.component.scss'],
 })
 export class DiaryFormComponent implements OnInit {
-  foods$ = this.foodListState.food$;
+  foods$ = this.foodListState.foods$;
   today = new Date();
   maxDate = new Date();
   diaryForm = this.fb.group({
@@ -70,7 +72,6 @@ export class DiaryFormComponent implements OnInit {
       return;
     }
     const transformedData = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-
     this.diaryState.getDiary(transformedData!);
   }
 

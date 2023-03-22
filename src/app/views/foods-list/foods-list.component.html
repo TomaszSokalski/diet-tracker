@@ -2,7 +2,7 @@
   <app-loader *ngIf="loading$ | async"></app-loader>
   <mat-form-field appearance="outline">
     <mat-label>Search Food</mat-label>
-    <input matInput [formControl]="search"/>
+    <input matInput [formControl]="search" />
   </mat-form-field>
   <div class="mat-elevation-z8">
     <table
@@ -30,7 +30,9 @@
 
       <ng-container matColumnDef="nutriScore">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>NutriScore</th>
-        <td mat-cell *matCellDef="let row"><app-nutri-score [nutriScore]="row.nutriScore"></app-nutri-score></td>
+        <td mat-cell *matCellDef="let row">
+          <app-nutri-score [nutriScore]="row.nutriScore"></app-nutri-score>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="delete">
@@ -72,10 +74,16 @@
         (click)="showFoodDetails(row)"
       ></tr>
     </table>
-
-    <button mat-flat-button color="warn" class="add-button" (click)="addFood()">
-      Add Food
-    </button>
+    <div class="btn-right">
+      <button
+        mat-flat-button
+        color="primary"
+        class="add-button"
+        (click)="addFood()"
+      >
+        Add Food
+      </button>
+    </div>
 
     <mat-paginator
       [pageSize]="10"

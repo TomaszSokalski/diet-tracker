@@ -19,7 +19,18 @@
     "target": "es2020",
     "module": "es2020",
     "lib": ["es2020", "dom"],
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "paths": {
+      "@app/*": ["src/app/*"],
+      "@env/*": ["src/environments/*"],
+      "@views/*": ["src/app/views/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@utils/*": ["/src/app/shared/utils/*"],
+      "@interfaces/*": ["src/app/shared/interfaces/*"],
+      "@diary/state": ["src/app/views/diary/state/diary.state"],
+      "@diary/service": ["src/app/views/diary/services/diary.service"],
+      "@unsubscribe": ["src/app/shared/unsubscribe"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

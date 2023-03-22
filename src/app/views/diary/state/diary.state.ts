@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, finalize } from 'rxjs';
-import { DiaryResponse } from 'src/app/interfaces/diary-response.interface';
-import { Diary } from 'src/app/interfaces/diary.interface';
-import { DiaryService } from '../services/diary.service';
+
+import { DiaryService } from '@diary/service';
+import { Diary } from '@interfaces//diary.interface';
+import { DiaryResponse } from '@interfaces/diary-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -61,6 +62,4 @@ export class DiaryState {
   private updateLoading(value: boolean): void {
     this.loadingSource.next(value);
   }
-
-  
 }

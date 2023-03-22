@@ -1,15 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DiaryResponse } from 'src/app/interfaces/diary-response.interface';
-import { Diary } from 'src/app/interfaces/diary.interface';
-import { environment } from 'src/environments/environment';
+
+import { DiaryResponse } from '@interfaces/diary-response.interface';
+import { Diary } from '@interfaces/diary.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiaryService {
-  private API_URL = environment.baseUrl;
+  private API_URL = 'http://localhost:8080/api';
 
   constructor(private httpClient: HttpClient) {}
 
