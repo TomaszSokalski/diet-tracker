@@ -15,6 +15,7 @@ import { FoodListState } from '@views/foods-list/state/food-list.state';
 import { NUTRI_SCORE } from './nutri-score.const';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DISPLAYED_COLUMNS } from './displayed-columns.const';
 
 @Component({
   selector: 'app-dialog',
@@ -23,7 +24,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DialogComponent extends UnsubscribeComponent implements OnInit {
   food$ = this.foodListState.food$;
+
+  displayedColumns = DISPLAYED_COLUMNS;
+  dataSource: Food[] = [this.data.food];
   nutriScores = NUTRI_SCORE;
+
   addForm = this.fb.group({
     name: ['', [Validators.required]],
     weight: [0, [Validators.required, Validators.min(0)]],

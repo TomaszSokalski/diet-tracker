@@ -1,14 +1,37 @@
 <ng-container *ngIf="data?.isReadonly; else form">
-  <ul class="food-list">
-    <li><b>Name:</b> {{ data.food.name }}</li>
-    <li><b>Weight:</b> {{ data.food.weight }}g</li>
-    <li><b>CaloriesPer100g:</b> {{ data.food.caloriesPer100g }}kcal</li>
-    <li *ngIf="data.food.nutriScore">
-      <b>NutriScore:</b
-      ><app-nutri-score [nutriScore]="data.food.nutriScore"></app-nutri-score>
-    </li>
-  </ul>
-  <div class="button__wrapper">
+  <table
+    class="example-table mat-elevation-z8"
+    mat-table
+    recycleRows
+    [dataSource]="dataSource"
+  >
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef>Weight</th>
+      <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="caloriesPer100g">
+      <th mat-header-cell *matHeaderCellDef>CaloriesPer100g</th>
+      <td mat-cell *matCellDef="let element">{{ element.caloriesPer100g }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="nutriScore">
+      <th mat-header-cell *matHeaderCellDef>NutriScore</th>
+      <td mat-cell *matCellDef="let element">
+        <app-nutri-score [nutriScore]="element.nutriScore"></app-nutri-score>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <div class="btn">
     <button
       style="align-items: left"
       mat-raised-button
