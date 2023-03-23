@@ -7,7 +7,15 @@ table {
   padding: 0;
 }
 
+.mat-row:nth-child(odd){
+  background-color: whitesmoke;
+}
+
 .mat-row:hover {
   cursor: pointer;
   background-color: lightgray;
+}
+
+.cdk-footer-row {
+  font-weight: bold;
 }

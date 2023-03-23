@@ -3,6 +3,5 @@
     'weight',
     'caloriesPer100g',
     'nutriScore',
-    'delete',
-    'update',
+    'action',
   ];
