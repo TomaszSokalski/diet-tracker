@@ -26,7 +26,7 @@ export class DialogComponent extends UnsubscribeComponent implements OnInit {
   food$ = this.foodListState.food$;
 
   displayedColumns = DISPLAYED_COLUMNS;
-  dataSource: Food[] = [this.data.food];
+  dataSource: Food[] = [this.data?.food];
   nutriScores = NUTRI_SCORE;
 
   addForm = this.fb.group({
