@@ -10,8 +10,14 @@
 .add-button {
   margin: 15px 25px 0 15px;
 }
+.mat-column-action {
+  width: 15%;
+  button:nth-child(2) {
+    margin-left: 5px;
+  }
+}
 
-.mat-row:nth-child(odd){
+.mat-row:nth-child(odd) {
   background-color: whitesmoke;
 }
 
