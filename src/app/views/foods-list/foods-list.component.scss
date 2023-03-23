@@ -8,7 +8,11 @@
 }
 
 .add-button {
-  margin: 15px 0 0 15px;
+  margin: 15px 25px 0 15px;
+}
+
+.mat-row:nth-child(odd){
+  background-color: whitesmoke;
 }
 
 .mat-row:hover {
@@ -18,8 +22,4 @@
 
 .btn-right {
   text-align: right;
-}
-
-.add-button {
-  margin-right: 25px;
 }
