@@ -35,6 +35,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { LoginComponent } from './auth/components/login/login.component';
+import { RegisterComponent } from './auth/components/register/register.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoaderComponent } from './components/loader/loader.component';
@@ -75,7 +77,6 @@ const MODULES = [
   MatPaginatorModule,
 ];
 
-
 @NgModule({
   declarations: [
     LoaderComponent,
@@ -84,8 +85,16 @@ const MODULES = [
     NavbarComponent,
     PageNotFoundComponent,
     FooterComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, MODULES],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MODULES,
+  ],
   exports: [
     MODULES,
     MatNativeDateModule,
