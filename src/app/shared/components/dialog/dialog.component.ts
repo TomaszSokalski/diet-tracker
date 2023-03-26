@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 
+import { DialogData } from './dialog-data.interface';
 import { Food } from '@views/foods-list/interfaces/food.interface';
-import { DialogData } from '@interfaces/dialog-data.interface';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 

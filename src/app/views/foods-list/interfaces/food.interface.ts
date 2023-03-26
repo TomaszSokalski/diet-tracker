@@ -1,4 +1,4 @@
-import { NutriScore } from '../components/nutri-score/nutri-score.enum';
+import { NutriScore } from '@shared/components/nutri-score/nutri-score.enum';
 import { Tag } from './tag.interface';
 
 export interface Food {

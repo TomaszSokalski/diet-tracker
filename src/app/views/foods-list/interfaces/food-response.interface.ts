@@ -1,6 +1,6 @@
 import { Food } from './food.interface';
 
-export interface Response {
+export interface FoodResponse {
   length: number;
   data: Food[];
 }
