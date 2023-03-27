@@ -6,7 +6,7 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
@@ -25,11 +25,7 @@
       "@env/*": ["src/environments/*"],
       "@views/*": ["src/app/views/*"],
       "@shared/*": ["src/app/shared/*"],
-      "@utils/*": ["/src/app/shared/utils/*"],
-      "@interfaces/*": ["src/app/shared/interfaces/*"],
-      "@diary/state": ["src/app/views/diary/state/diary.state"],
-      "@diary/service": ["src/app/views/diary/services/diary.service"],
-      "@unsubscribe": ["src/app/shared/unsubscribe"]
+      "@utils/*": ["src/app/shared/utils/*"],
     }
   },
   "angularCompilerOptions": {

@@ -1,0 +1,18 @@
+{
+  "preset": "jest-preset-angular",
+  "setupFilesAfterEnv": ["<rootDir>/src/jest.config.ts"],
+  "testPathIgnorePatterns": ["<rootDir>/node_modules/", "<rootDir>/dist/"],
+  "globals": {
+    "ts-jest": {
+      "tsConfig": "<rootDir>/tsconfig.spec.json",
+      "stringifyContentPathRegex": "\\.html$"
+    }
+  },
+  "moduleNameMapper": {
+    "@app/(.*)": ["<rootDir>/src/app/$1"],
+    "@env/(.*)": ["<rootDir>/src/environments/$1"],
+    "@views/(.*)": ["<rootDir>/src/app/views/$1"],
+    "@shared/(.*)": ["<rootDir>/src/app/shared/$1"],
+    "@utils/(.*)": ["<rootDir>/src/app/shared/utils/$1"]
+  }
+}
