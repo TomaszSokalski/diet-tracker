@@ -2,23 +2,24 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { DiaryResponse } from '@interfaces/diary-response.interface';
-import { Diary } from '@interfaces/diary.interface';
+import { API_URL } from '@shared/utils/api/config.const';
+import { DiaryResponse } from '@views/diary/interfaces/diary-response.interface';
+import { Diary } from '@views/diary/interfaces/diary.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiaryService {
-  private API_URL = 'http://localhost:8080/api';
+  private BASE_PATH = '/diary';
 
   constructor(private httpClient: HttpClient) {}
 
   getDiary(): Observable<DiaryResponse> {
-    return this.httpClient.get<DiaryResponse>(`${this.API_URL}/diary`);
+    return this.httpClient.get<DiaryResponse>(`${API_URL}${this.BASE_PATH}`);
   }
 
   getDiaryById(id: string): Observable<Diary> {
-    return this.httpClient.get<Diary>(`${this.API_URL}/diary/${id}`);
+    return this.httpClient.get<Diary>(`${API_URL}${this.BASE_PATH}${id}`);
   }
 
   getDiaryByDate(searchBy?: string): Observable<DiaryResponse> {
@@ -27,16 +28,16 @@ export class DiaryService {
     if (searchBy) {
       params = new HttpParams({ fromString: `data=${searchBy}` });
     }
-    return this.httpClient.get<DiaryResponse>(`${this.API_URL}/diary`, {
+    return this.httpClient.get<DiaryResponse>(`${API_URL}${this.BASE_PATH}`, {
       params: params,
     });
   }
 
   postFoodToDiary(food: Diary): Observable<Diary> {
-    return this.httpClient.post<Diary>(`${this.API_URL}/diary`, food);
+    return this.httpClient.post<Diary>(`${API_URL}${this.BASE_PATH}`, food);
   }
 
   deleteDiary(id: string): Observable<Diary> {
-    return this.httpClient.delete<Diary>(`${this.API_URL}/diary/${id}`);
+    return this.httpClient.delete<Diary>(`${API_URL}${this.BASE_PATH}/${id}`);
   }
 }
