@@ -34,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
 
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
@@ -75,6 +76,7 @@ const MODULES = [
   MatSnackBarModule,
   MatTableModule,
   MatPaginatorModule,
+  MatSortModule,
 ];
 
 @NgModule({

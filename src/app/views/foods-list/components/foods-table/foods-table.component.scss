@@ -1,0 +1,33 @@
+.table {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  &__btn {
+    display: flex;
+    align-self: center;
+  }
+}
+
+.mat-column-action {
+  width: 15%;
+  text-align: right;
+  button:last-child {
+    margin-left: 5px;
+  }
+}
+
+.mat-row:nth-child(odd) {
+  background-color: whitesmoke;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
+
+.icon {
+  margin-left: 5px;
+}
