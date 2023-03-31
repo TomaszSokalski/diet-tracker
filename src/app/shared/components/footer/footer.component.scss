@@ -1,12 +1,11 @@
 .footer {
     background: #3f51b5;
     text-align: center;
-}
-
-.footer__text {
-    font-size: 12px;
+    &__text {
+        font-size: 12px;
     letter-spacing: 1px;
     color: #fff;
     padding: 15px;
     margin: 0;
+    }
 }

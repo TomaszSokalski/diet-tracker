@@ -1,31 +1,11 @@
-.table {
-  width: 100%;
+.wrapper {
+    margin: 3rem;
+    &__content {
+        padding-top: 10px;
+    }
 }
 
-.mat-form-field {
-  font-size: 14px;
-  width: 100%;
-}
-
-.add-button {
-  margin: 15px 25px 0 15px;
-}
-.mat-column-action {
-  width: 15%;
-  button:nth-child(2) {
-    margin-left: 5px;
-  }
-}
-
-.mat-row:nth-child(odd) {
-  background-color: whitesmoke;
-}
-
-.mat-row:hover {
-  cursor: pointer;
-  background-color: lightgray;
-}
-
-.btn-right {
-  text-align: right;
+.header {
+    display: flex;
+    justify-content: center;
 }
