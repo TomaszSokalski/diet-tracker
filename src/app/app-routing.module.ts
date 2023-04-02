@@ -1,6 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/auth/auth.guard';
+import { LoginComponent } from './shared/auth/components/login/login.component';
 import { PageNotFoundComponent } from './shared/components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
@@ -30,6 +31,10 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () =>
       import('./views/home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   { path: '**', component: PageNotFoundComponent },
 ];

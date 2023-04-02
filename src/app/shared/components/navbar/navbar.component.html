@@ -24,7 +24,7 @@
           <mat-icon>menu</mat-icon>
         </button>
       </div>
-      <div>
+      <div routerLink="/home">
         {{ title | titlecase }}
       </div>
         <ul class="navigation-items wrapper">
@@ -46,6 +46,11 @@
           <li>
             <a routerLink="/exercises" routerLinkActive="active">{{
               menuItems[3] | titlecase
+            }}</a>
+          </li>
+          <li>
+            <a routerLink="/login" routerLinkActive="active">{{
+              menuItems[4] | titlecase
             }}</a>
           </li>
         </ul>
