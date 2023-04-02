@@ -2,14 +2,16 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { filter, takeUntil } from 'rxjs';
 
-import { Diary } from '@interfaces/diary.interface';
-import { Food } from '@interfaces/food.interface';
+import { Diary } from '@views/diary/interfaces/diary.interface';
+import { Food } from '@views/foods-list/interfaces/food.interface';
 import { UnsubscribeComponent } from '@shared/unsubscribe';
 import { FoodListState } from '@views/foods-list/state/food-list.state';
-import { DiaryState } from '@diary/state';
+import { DiaryState } from '../../state/diary.state';
+import { CalculateCaloriesService } from '@views/diary/services/calculate-calories.service';
 
-import { DISPLAYED_COLUMNS } from '../../displayed-columns.const';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { DISPLAYED_COLUMNS } from './displayed-columns.const';
+
 @Component({
   selector: 'app-diary-table',
   templateUrl: './diary-table.component.html',
@@ -30,7 +32,8 @@ export class DiaryTableComponent
     private diaryState: DiaryState,
     private foodListState: FoodListState,
     private datePipe: DatePipe,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private calcCalories: CalculateCaloriesService
   ) {
     super();
   }
@@ -44,26 +47,12 @@ export class DiaryTableComponent
     this.diaryState.deleteDiary(diary.id, diary.date);
   }
 
-  calculateTotalCalories(diary: Diary[] | null, food: Food[] | null): number {
-    const foodsInDiary = diary!.map((el) => el.foods).flat();
-    const getCompareFoods = food!.filter(({ id: id1 }) =>
-      foodsInDiary!.some(({ id: id2 }) => id1 === id2)
-    );
-    const totalCaloriesPerDay = getCompareFoods.reduce(
-      (acc, food) => acc + food.caloriesPer100g!,
-      0
-    );
-    const totalWeightPerDay = foodsInDiary!.reduce(
-      (acc, food) => acc + food.weight,
-      0
-    );
-
-    return (totalWeightPerDay / 100) * totalCaloriesPerDay;
+  totalCalories(diary: Diary[] | null, food: Food[] | null) {
+    return this.calcCalories.calculateTotalCalories(diary, food);
   }
 
-  calculateTotalWeight(diary: Diary[] | null): number {
-    const foods = diary?.map((el) => el.foods);
-    return foods!.flat().reduce((acc, food) => acc + food.weight, 0);
+  totalWeight(diary: Diary[] | null): number {
+    return this.calcCalories.calculateTotalWeight(diary);
   }
 
   private getInitialValue(): void {
@@ -75,10 +64,10 @@ export class DiaryTableComponent
     this.error$
       .pipe(
         takeUntil(this.destroy$),
-        filter((e) => e !== null)
+        filter((error) => error !== null)
       )
-      .subscribe((err) => {
-        this.snackbar.open(err?.message ?? 'Error');
+      .subscribe((error) => {
+        this.snackbar.open(error?.message ?? 'Error');
       });
   }
 }

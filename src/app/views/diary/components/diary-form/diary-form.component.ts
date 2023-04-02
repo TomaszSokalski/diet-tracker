@@ -2,16 +2,15 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
 
-import { DiaryService } from '@diary/service';
-import { DiaryState } from '@diary/state';
-import { Diary } from '@interfaces/diary.interface';
-import { Food } from '@interfaces/food.interface';
-import { FoodListState } from '@views/foods-list/state/food-list.state';
+import { Diary } from '@views/diary/interfaces/diary.interface';
+import { Food } from '@views/foods-list/interfaces/food.interface';
+import { FoodListState } from '@views//foods-list/state/food-list.state';
+import { DiaryService } from '../../services/diary.service';
+import { DiaryState } from '../../state/diary.state';
 
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
@@ -24,11 +23,7 @@ export class DiaryFormComponent implements OnInit {
   foods$ = this.foodListState.foods$;
   today = new Date();
   maxDate = new Date();
-  diaryForm = this.fb.group({
-    date: ['', [Validators.required]],
-    foods: ['', [Validators.required]],
-    weight: ['', [Validators.required, Validators.min(0)]],
-  });
+  form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -38,28 +33,29 @@ export class DiaryFormComponent implements OnInit {
     private datePipe: DatePipe
   ) {}
 
-  get date(): FormControl {
-    return this.diaryForm.get('date') as FormControl;
+  get date() {
+    return this.form.get('date');
   }
 
-  get weight(): FormControl {
-    return this.diaryForm.get('weight') as FormControl;
+  get weight() {
+    return this.form.get('weight');
   }
 
-  get foods(): FormControl {
-    return this.diaryForm.get('foods') as FormControl;
+  get foods() {
+    return this.form.get('foods');
   }
 
   ngOnInit(): void {
+    this.initForm();
     this.foodListState.getFoods();
-    this.date.setValue(this.today);
+    this.date?.setValue(this.today);
   }
 
   addFoodToDiary(): void {
-    if (this.diaryForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
-    const payload = this.diaryPayload(this.diaryForm);
+    const payload = this.diaryPayload(this.form);
     this.diaryService.postFoodToDiary(payload).subscribe(() => {
       this.diaryState.getDiary(payload.date);
     });
@@ -77,12 +73,20 @@ export class DiaryFormComponent implements OnInit {
 
   getFoodWeight(event: Food): void {
     const { weight } = event;
-    this.weight.setValue(weight);
+    this.weight?.setValue(weight);
+  }
+
+  private initForm(): void {
+    this.form = this.fb.group({
+      date: [null, [Validators.required]],
+      foods: [null, [Validators.required]],
+      weight: [null, [Validators.required, Validators.min(0)]],
+    });
   }
 
   private diaryPayload(diaryForm: FormGroup): Diary {
     const date = this.date;
-    const formattedDate = this.datePipe.transform(date.value, 'yyyy-MM-dd');
+    const formattedDate = this.datePipe.transform(date?.value, 'yyyy-MM-dd');
     const { value } = diaryForm;
     return {
       id: value.id,
@@ -97,9 +101,9 @@ export class DiaryFormComponent implements OnInit {
   }
 
   private resetInputs(): void {
-    this.weight.reset();
-    this.weight.setErrors(null);
-    this.foods.reset();
-    this.foods.setErrors(null);
+    this.weight?.reset();
+    this.weight?.setErrors(null);
+    this.foods?.reset();
+    this.foods?.setErrors(null);
   }
 }

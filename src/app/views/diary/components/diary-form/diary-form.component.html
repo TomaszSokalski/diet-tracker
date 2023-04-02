@@ -1,68 +1,71 @@
 <header class="header">
-  <h1>Diet for day: {{ date.value | date : "dd.MM.yyyy" }}</h1>
+  <h1>Diet for day: {{ date?.value | date : "dd/MM/yyyy" }}</h1>
 </header>
 
-<form [formGroup]="diaryForm" class="container" (ngSubmit)="addFoodToDiary()">
-  <div class="form-item">
-    <mat-form-field appearance="outline">
-      <mat-label>Select a date</mat-label>
-      <input
-        matInput
-        required
-        [matDatepicker]="picker"
-        formControlName="date"
-        [max]="maxDate"
-        (dateChange)="onDateChange($event)"
-      />
-      <mat-hint>DD/MM/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="diaryForm.controls.date.hasError('required')">
-        <strong>Field required</strong>
-      </mat-error>
-    </mat-form-field>
-  </div>
-  <div class="form-item">
-    <mat-form-field appearance="outline">
-      <mat-label>Choose food</mat-label>
-      <mat-select formControlName="foods" required (selectionChange)="getFoodWeight($event.value)">
-        <mat-option>- Clear -</mat-option>
-        <mat-option *ngFor="let food of foods$ | async" [value]="food">
-          {{ food.name }}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="diaryForm.controls.foods.hasError('required')">
-        <strong>Field required</strong>
-      </mat-error>
-    </mat-form-field>
-  </div>
-  <div class="form-item">
-    <mat-form-field appearance="outline">
-      <mat-label>Enter the weight</mat-label>
-      <input
-        matInput
-        required
-        type="number"
-        formControlName="weight"
-        placeholder="Enter the weight"
-      />
-      <span matSuffix>g</span>
-      <mat-error *ngIf="diaryForm.controls.weight.hasError('required')">
-        <strong>Field required</strong>
-      </mat-error>
-      <mat-error *ngIf="diaryForm.controls.weight.hasError('min')">
-        Value cannot be <strong>less than 0</strong>
-      </mat-error>
-    </mat-form-field>
-  </div>
-  <div class="form-item">
+<mat-divider></mat-divider>
+
+<form [formGroup]="form" class="container">
+  <mat-form-field appearance="outline">
+    <mat-label>Select a date</mat-label>
+    <input
+      matInput
+      required
+      [matDatepicker]="picker"
+      formControlName="date"
+      [max]="maxDate"
+      (dateChange)="onDateChange($event)"
+    />
+    <mat-hint>DD/MM/YYYY</mat-hint>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="form.controls.date.hasError('required')">
+      Date <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Choose food</mat-label>
+    <mat-select
+      formControlName="foods"
+      required
+      (selectionChange)="getFoodWeight($event.value)"
+    >
+      <mat-option>- Clear -</mat-option>
+      <mat-option *ngFor="let food of foods$ | async" [value]="food">
+        {{ food.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.controls.foods.hasError('required')">
+      Food <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Weight</mat-label>
+    <input
+      matInput
+      required
+      type="number"
+      formControlName="weight"
+      placeholder="Weight"
+    />
+    <span matSuffix>g</span>
+    <mat-error *ngIf="form.controls.weight.hasError('required')">
+      Weight <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="form.controls.weight.hasError('min')">
+      Value cannot be <strong>less than 0</strong>
+    </mat-error>
+  </mat-form-field>
+  <div class="btn">
     <button
       mat-flat-button
       color="primary"
       type="submit"
-      [disabled]="diaryForm.invalid"
+      [disabled]="form.invalid"
+      (click)="addFoodToDiary()"
     >
-      Add
+      Add food <mat-icon class="icon">add_circle_outline</mat-icon>
     </button>
   </div>
 </form>

@@ -8,6 +8,7 @@ import { DiaryFormComponent } from './components/diary-form/diary-form.component
 import { DiaryTableComponent } from './components/diary-table/diary-table.component';
 import { DiaryRoutingModule } from './diary-routing.module';
 import { DiaryComponent } from './diary.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -24,5 +25,6 @@ import { DiaryComponent } from './diary.component';
     SharedModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
 })
 export class DiaryModule {}

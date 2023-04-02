@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, finalize } from 'rxjs';
 
-import { DiaryService } from '@diary/service';
-import { Diary } from '@interfaces//diary.interface';
-import { DiaryResponse } from '@interfaces/diary-response.interface';
+import { DiaryResponse } from '@app/views/diary/interfaces/diary-response.interface';
+import { Diary } from '@app/views/diary/interfaces/diary.interface';
+import { DiaryService } from '../services/diary.service';
 
 @Injectable({
   providedIn: 'root',
