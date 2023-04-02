@@ -75,7 +75,6 @@
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Choose tag</mat-label>
         <mat-select formControlName="tags" multiple>
-          <mat-option>- Clear -</mat-option>
           <mat-option *ngFor="let tag of tags" [value]="tag">{{
             tag
           }}</mat-option>
