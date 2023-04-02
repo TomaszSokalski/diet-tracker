@@ -24,6 +24,7 @@ export class AddEditFoodComponent
   updatedFood$ = this.foodListState.updatedFood$;
 
   form: FormGroup;
+  tags: string[] = ['1', '2', '3'];
 
   readonly nutriscore = Object.keys(NutriScore);
   private id = this.data?.id;
@@ -75,6 +76,7 @@ export class AddEditFoodComponent
       caloriesPer100g: [null, [Validators.min(0)]],
       nutriScore: [null],
       hasNutriScore: [false],
+      tags: [null]
     });
   }
 
@@ -96,6 +98,7 @@ export class AddEditFoodComponent
       weight: value.weight,
       caloriesPer100g: value.caloriesPer100g,
       nutriScore: value.nutriScore,
+      tags: value.tags
     };
   }
 
