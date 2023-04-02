@@ -1,5 +1,5 @@
+import { Food } from '@app/views/foods-list/interfaces/food.interface';
 import { Observable, of } from 'rxjs';
-import { Food } from 'src/app/shared/interfaces/food.interface';
 import { FoodnamePipe } from './foodname.pipe';
 
 describe('FoodnamePipe', () => {

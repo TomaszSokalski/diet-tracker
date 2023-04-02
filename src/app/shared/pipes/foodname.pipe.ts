@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Food } from '@views/foods-list/interfaces/food.interface';
 import { map, Observable } from 'rxjs';
-import { Food } from '@shared/interfaces/food.interface';
 
 @Pipe({
   name: 'foodName',
