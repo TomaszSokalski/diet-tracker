@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
   title = 'Food Tracker';
-  menuItems: string[] = ['home', 'foods', 'diary', 'exercises', 'login'];
+  menuItems: string[] = ['home', 'foods', 'diary', 'exercises', 'login', 'register'];
 }
