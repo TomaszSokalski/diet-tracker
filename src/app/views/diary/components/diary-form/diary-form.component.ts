@@ -13,6 +13,7 @@ import { DiaryService } from '../../services/diary.service';
 import { DiaryState } from '../../state/diary.state';
 
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MealType } from './meal-type';
 
 @Component({
   selector: 'app-diary-form',
@@ -21,9 +22,11 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class DiaryFormComponent implements OnInit {
   foods$ = this.foodListState.foods$;
+  diary$ = this.diaryState.diary$;
   today = new Date();
   maxDate = new Date();
   form: FormGroup;
+  mealTypes: MealType[] = ['breakfast', 'lunch', 'dinner', 'snack', 'training'];
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +46,10 @@ export class DiaryFormComponent implements OnInit {
 
   get foods() {
     return this.form.get('foods');
+  }
+
+  get mealType() {
+    return this.form.get('mealType');
   }
 
   ngOnInit(): void {
@@ -76,11 +83,16 @@ export class DiaryFormComponent implements OnInit {
     this.weight?.setValue(weight);
   }
 
+  getMealType(event: MealType): void {
+    console.log(event);
+  }
+
   private initForm(): void {
     this.form = this.fb.group({
       date: [null, [Validators.required]],
       foods: [null, [Validators.required]],
       weight: [null, [Validators.required, Validators.min(0)]],
+      mealType: [null, [Validators.required]],
     });
   }
 
@@ -95,6 +107,7 @@ export class DiaryFormComponent implements OnInit {
         {
           id: value.foods.id,
           weight: value.weight,
+          mealType: value.mealType,
         },
       ],
     };
@@ -105,5 +118,7 @@ export class DiaryFormComponent implements OnInit {
     this.weight?.setErrors(null);
     this.foods?.reset();
     this.foods?.setErrors(null);
+    this.mealType?.reset();
+    this.mealType?.setErrors(null);
   }
 }

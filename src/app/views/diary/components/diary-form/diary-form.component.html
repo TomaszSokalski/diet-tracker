@@ -57,6 +57,24 @@
       Value cannot be <strong>less than 0</strong>
     </mat-error>
   </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Choose meal type</mat-label>
+    <mat-select
+      formControlName="mealType"
+      required
+      (selectionChange)="getMealType($event.value)"
+    >
+      <mat-option>- Clear -</mat-option>
+      <mat-option *ngFor="let type of mealTypes" [value]="type">
+        {{ type }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.controls.mealType.hasError('required')">
+      Food <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+
   <div class="btn">
     <button
       mat-flat-button
