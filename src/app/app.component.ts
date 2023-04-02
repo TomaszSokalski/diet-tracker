@@ -23,6 +23,6 @@ export class AppComponent implements OnInit {
       { charset: 'UTF-8' },
     ]);
 
-    this.titleService.setTitle('Diet Tracker')
+    this.titleService.setTitle('Diet Tracker');
   }
 }

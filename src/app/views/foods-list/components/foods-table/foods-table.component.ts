@@ -92,7 +92,6 @@ export class FoodsTableComponent
   private initialFoodsData(): void {
     this.foods$.pipe(takeUntil(this.destroy$)).subscribe((food) => {
       this.dataSource.data = food;
-      this.dataSource.paginator = this.paginator;
     });
   }
 

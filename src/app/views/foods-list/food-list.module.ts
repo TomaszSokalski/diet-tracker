@@ -5,9 +5,11 @@ import { SharedModule } from '@shared/shared.module';
 
 import { FoodsRoutingModule } from './food-list-routing.module';
 import { FoodsListComponent } from './foods-list.component';
+import { AddEditFoodComponent } from './components/add-edit-food/add-edit-food.component';
+import { FoodsTableComponent } from './components/foods-table/foods-table.component';
 
 @NgModule({
-  declarations: [FoodsListComponent],
+  declarations: [FoodsListComponent, AddEditFoodComponent, FoodsTableComponent],
   imports: [
     CommonModule,
     FoodsRoutingModule,
