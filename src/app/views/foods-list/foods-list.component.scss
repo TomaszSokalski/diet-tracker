@@ -1,8 +1,10 @@
-.wrapper {
-    margin: 3rem;
-    &__content {
-        padding-top: 10px;
-    }
+:host {
+  margin: auto;
+  width: 90%;
+}
+
+.wrapper__content {
+    padding-top: 10px;
 }
 
 .header {

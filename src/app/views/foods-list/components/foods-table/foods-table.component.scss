@@ -5,6 +5,7 @@
 .actions {
   display: flex;
   justify-content: space-between;
+
   &__btn {
     display: flex;
     align-self: center;
@@ -13,7 +14,7 @@
 
 .mat-column-action {
   width: 15%;
-  text-align: right;
+  
   button:last-child {
     margin-left: 5px;
   }

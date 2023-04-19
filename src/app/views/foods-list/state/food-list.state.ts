@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, take } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import { Food } from '@views/foods-list/interfaces/food.interface';
-import { FoodListService } from '../services/food-list.service';
+import { FoodListService } from '@views/foods-list/services/food-list.service';
+import { TagsService } from '@views/foods-list/services/tags.service';
+import { Tag } from '@views/foods-list/interfaces/tag.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +16,8 @@ export class FoodListState {
   private foodSource = new BehaviorSubject<Food>({} as Food);
   food$ = this.foodSource.asObservable();
 
-  private updatedFoodSource = new BehaviorSubject<Food>({} as Food);
-  updatedFood$ = this.updatedFoodSource.asObservable();
-
-  private postFoodSource = new BehaviorSubject<Food>({} as Food);
-  postFood$ = this.postFoodSource.asObservable();
+  private tagsSource = new BehaviorSubject<Tag[]>([]);
+  tags$ = this.tagsSource.asObservable();
 
   private loadingSource = new BehaviorSubject<boolean>(true);
   loading$ = this.loadingSource.asObservable();
@@ -26,7 +25,10 @@ export class FoodListState {
   private errorSource = new BehaviorSubject<Error | null>(null);
   error$ = this.errorSource.asObservable();
 
-  constructor(private foodService: FoodListService) {}
+  constructor(
+    private foodService: FoodListService,
+    private tagsService: TagsService
+  ) {}
 
   getFoods(): void {
     this.updateLoading(true);
@@ -66,9 +68,8 @@ export class FoodListState {
     this.updateLoading(true);
 
     this.foodService.updateFood(food, id).subscribe({
-      next: (response) => {
+      next: () => {
         this.errorSource.next(null);
-        this.updatedFoodSource.next(response);
       },
       error: (error) => {
         this.errorSource.next(error);
@@ -79,32 +80,46 @@ export class FoodListState {
     });
   }
 
-  searchFoods(searchBy?: string): void {
+  searchFoods(searchBy?: string, tags?: Tag['id'][]): void {
     this.updateLoading(true);
 
-    this.foodService
-      .searchFoods(searchBy)
-      .subscribe({
-        next: (response) => {
-          this.errorSource.next(null);
-          this.foodsSource.next(response.data);
-        },
-        error: (error) => {
-          this.errorSource.next(error);
-        },
-        complete: () => {
-          this.updateLoading(false);
-        },
-      });
+    this.foodService.searchFoods(searchBy, tags).subscribe({
+      next: (response) => {
+        this.errorSource.next(null);
+        this.foodsSource.next(response.data);
+      },
+      error: (error) => {
+        this.errorSource.next(error);
+      },
+      complete: () => {
+        this.updateLoading(false);
+      },
+    });
+  }
+
+  getTags(): void {
+    this.updateLoading(true);
+
+    this.tagsService.getTags().subscribe({
+      next: (response) => {
+        this.errorSource.next(null);
+        this.tagsSource.next(response.data);
+      },
+      error: (error) => {
+        this.errorSource.next(error);
+      },
+      complete: () => {
+        this.updateLoading(false);
+      },
+    });
   }
 
   postFood(food: Food): void {
     this.updateLoading(true);
 
     this.foodService.postFood(food).subscribe({
-      next: (response) => {
+      next: () => {
         this.errorSource.next(null);
-        this.postFoodSource.next(response);
       },
       error: (error) => {
         this.errorSource.next(error);

@@ -1,10 +1,17 @@
 <app-loader *ngIf="(loading$ | async) && !(error$ | async)"></app-loader>
 
-<div class="actions">
-  <mat-form-field appearance="outline">
+<div class="actions" [formGroup]="form">
+  <mat-form-field>
     <mat-label>Search Food</mat-label>
-    <input matInput [formControl]="search" />
+    <input matInput formControlName="foodName" />
   </mat-form-field>
+
+  <mat-form-field>
+  <mat-label>SearchByTags</mat-label>
+  <mat-select formControlName="tags" multiple *ngIf="(tags$ | async) as tags">
+    <mat-option *ngFor="let tag of tags" [value]="tag.id">{{ tag.name }}</mat-option>
+  </mat-select>
+</mat-form-field>
 
   <div class="actions__btn">
     <button
@@ -38,19 +45,19 @@
     </ng-container>
 
     <ng-container matColumnDef="caloriesPer100g">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>CaloriesPer100g</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Calories per 100 g</th>
       <td mat-cell *matCellDef="let row">{{ row.caloriesPer100g }}kcal</td>
     </ng-container>
 
     <ng-container matColumnDef="nutriScore">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>NutriScore</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nutri score</th>
       <td mat-cell *matCellDef="let row">
         <app-nutri-score [nutriScore]="row.nutriScore"></app-nutri-score>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Actions</th>
       <td mat-cell *matCellDef="let row">
         <button
           mat-icon-button
