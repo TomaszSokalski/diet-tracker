@@ -5,7 +5,6 @@ import { takeUntil } from 'rxjs';
 import { UnsubscribeComponent } from '@shared/unsubscribe';
 import { DialogData } from '@shared/components/dialog/dialog-data.interface';
 import { NutriScore } from '@shared/components/nutri-score/nutri-score.enum';
-import { Food } from '@views/foods-list/interfaces/food.interface';
 import { FoodListState } from '@views/foods-list/state/food-list.state';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
