@@ -20,11 +20,9 @@ export class AddEditFoodComponent
   implements OnInit
 {
   food$ = this.foodListState.food$;
-  postFood$ = this.foodListState.postFood$;
-  updatedFood$ = this.foodListState.updatedFood$;
+  tags$ = this.foodListState.tags$;
 
   form: FormGroup;
-  tags: string[] = ['1', '2', '3'];
 
   readonly nutriscore = Object.keys(NutriScore);
   private id = this.data?.id;
@@ -41,32 +39,18 @@ export class AddEditFoodComponent
   ngOnInit(): void {
     this.initForm();
     this.setFormValue();
-    this.onNutriScoreChanges();
-  }
-
-  get hasNutriScore() {
-    return this.form.get('hasNutriScore');
   }
 
   addFood(): void {
     if (this.form.invalid) {
       return;
     }
-    const payload = this.createPayLoad(this.form);
+    
     this.id !== undefined && this.id !== null
-      ? this.foodListState.updateFood(payload, this.id)
-      : this.foodListState.postFood(payload);
+      ? this.foodListState.updateFood(this.form.value, this.id)
+      : this.foodListState.postFood(this.form.value);
 
-    this.postFood$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.dialogRef.close());
-    this.updatedFood$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.dialogRef.close());
-  }
-
-  close() {
-    this.dialogRef.close();
+      this.dialogRef.close();
   }
 
   private initForm(): void {
@@ -90,29 +74,4 @@ export class AddEditFoodComponent
     }
   }
 
-  private createPayLoad(addForm: FormGroup): Food {
-    const { value } = addForm;
-    return {
-      id: value.id,
-      name: value.name,
-      weight: value.weight,
-      caloriesPer100g: value.caloriesPer100g,
-      nutriScore: value.nutriScore,
-      tags: value.tags
-    };
-  }
-
-  private onNutriScoreChanges(): void {
-    this.hasNutriScore?.valueChanges
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((value) => {
-        const nutriScore = this.form.get('nutriScore');
-        if (value) {
-          nutriScore?.enable();
-        } else {
-          nutriScore?.reset();
-          nutriScore?.disable();
-        }
-      });
-  }
 }
