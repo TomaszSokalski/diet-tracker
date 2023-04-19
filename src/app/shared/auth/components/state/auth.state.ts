@@ -8,9 +8,6 @@ import { Login } from '../login/login.interface';
   providedIn: 'root',
 })
 export class AuthState {
-  private userSource = new BehaviorSubject<Login>({} as Login);
-  user$ = this.userSource.asObservable();
-
   private postUserSource = new BehaviorSubject<Login>({} as Login);
   postUser$ = this.postUserSource.asObservable();
 
@@ -21,23 +18,6 @@ export class AuthState {
   error$ = this.errorSource.asObservable();
 
   constructor(private authService: AuthService) {}
-
-//   getUser(user: Login): void {
-//     this.updateLoading(true);
-
-//     this.authService.getUserByPassword(user).subscribe({
-//       next: (response) => {
-//         this.errorSource.next(null);
-//         this.userSource.next(response);
-//       },
-//       error: (error) => {
-//         this.errorSource.next(error);
-//       },
-//       complete: () => {
-//         this.updateLoading(false);
-//       },
-//     });
-//   }
 
   postUser(user: Login): void {
     this.updateLoading(true);
