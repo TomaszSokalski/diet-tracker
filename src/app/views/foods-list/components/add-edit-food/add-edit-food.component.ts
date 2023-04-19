@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs';
 
 import { UnsubscribeComponent } from '@shared/unsubscribe';
-import { DialogData } from '@shared/components/dialog/dialog-data.interface';
 import { NutriScore } from '@shared/components/nutri-score/nutri-score.enum';
 import { FoodListState } from '@views/foods-list/state/food-list.state';
 
@@ -24,13 +23,13 @@ export class AddEditFoodComponent
   form: FormGroup;
 
   readonly nutriscore = Object.keys(NutriScore);
-  private id = this.data?.id;
+  private id = this.data;
 
   constructor(
     private foodListState: FoodListState,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddEditFoodComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: DialogData
+    @Inject(MAT_DIALOG_DATA) private data: string
   ) {
     super();
   }

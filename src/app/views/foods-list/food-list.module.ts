@@ -7,9 +7,10 @@ import { FoodsRoutingModule } from './food-list-routing.module';
 import { FoodsListComponent } from './foods-list.component';
 import { AddEditFoodComponent } from './components/add-edit-food/add-edit-food.component';
 import { FoodsTableComponent } from './components/foods-table/foods-table.component';
+import { FoodDetailComponent } from './components/food-detail/food-detail.component';
 
 @NgModule({
-  declarations: [FoodsListComponent, AddEditFoodComponent, FoodsTableComponent],
+  declarations: [FoodsListComponent, AddEditFoodComponent, FoodsTableComponent, FoodDetailComponent],
   imports: [
     CommonModule,
     FoodsRoutingModule,

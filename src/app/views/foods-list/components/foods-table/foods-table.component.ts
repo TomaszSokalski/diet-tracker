@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { debounceTime, filter, startWith, takeUntil } from 'rxjs';
 
-import { DialogComponent } from '@shared/components/dialog/dialog.component';
 import { UnsubscribeComponent } from '@shared/unsubscribe';
 import { Food } from '@views/foods-list/interfaces/food.interface';
 import { FoodListState } from '@views/foods-list/state/food-list.state';
 import { AddEditFoodComponent } from '@views/foods-list/components/add-edit-food/add-edit-food.component';
+import { FoodDetailComponent } from '../food-detail/food-detail.component';
 import { DISPLAYED_COLUMNS } from './displayed-columns.const';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -92,9 +92,9 @@ export class FoodsTableComponent
   }
 
   showFoodDetails(food: Food): void {
-    this.dialog.open(DialogComponent, {
+    this.dialog.open(FoodDetailComponent, {
       width: '50%',
-      data: food ,
+      data: food,
     });
   }
 

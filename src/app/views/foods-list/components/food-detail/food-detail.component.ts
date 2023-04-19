@@ -1,19 +1,21 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs';
 
-import { DialogData } from './dialog-data.interface';
-import { Food } from '@views/foods-list/interfaces/food.interface';
-import { FoodListState } from '@app/views/foods-list/state/food-list.state';
+import { FoodListState } from '../../state/food-list.state';
 import { UnsubscribeComponent } from '@app/shared/unsubscribe';
+import { Food } from '../../interfaces/food.interface';
 
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
+  selector: 'app-food-detail',
+  templateUrl: './food-detail.component.html',
+  styleUrls: ['./food-detail.component.scss'],
 })
-export class DialogComponent extends UnsubscribeComponent implements OnInit {
+export class FoodDetailComponent
+  extends UnsubscribeComponent
+  implements OnInit
+{
   displayedColumns: string[] = [];
   dataSource: Food[] = [];
 
@@ -22,8 +24,8 @@ export class DialogComponent extends UnsubscribeComponent implements OnInit {
 
   constructor(
     private foodListState: FoodListState,
-    public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    public dialogRef: MatDialogRef<FoodDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Food
   ) {
     super();
   }
@@ -50,6 +52,5 @@ export class DialogComponent extends UnsubscribeComponent implements OnInit {
         }
       }
     }
-    
   }
 }

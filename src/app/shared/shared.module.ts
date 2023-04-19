@@ -38,7 +38,6 @@ import { MatSortModule } from '@angular/material/sort';
 
 import { LoginComponent } from './auth/components/login/login.component';
 import { RegisterComponent } from './auth/components/register/register.component';
-import { DialogComponent } from './components/dialog/dialog.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoaderComponent } from './components/loader/loader.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -83,7 +82,6 @@ const MODULES = [
   declarations: [
     LoaderComponent,
     NutriScoreComponent,
-    DialogComponent,
     NavbarComponent,
     PageNotFoundComponent,
     FooterComponent,
@@ -102,7 +100,6 @@ const MODULES = [
     MatNativeDateModule,
     LoaderComponent,
     NutriScoreComponent,
-    DialogComponent,
     NavbarComponent,
     PageNotFoundComponent,
     FooterComponent,
