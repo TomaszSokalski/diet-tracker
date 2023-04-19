@@ -1,11 +1,8 @@
-<div class="wrapper">
-  <mat-card class="wrapper__card">
+  <mat-card class="wrapper">
     <mat-card-title>Login</mat-card-title>
     <mat-card-content>
       <form [formGroup]="form" class="wrapper__form">
         <mat-form-field
-          class="mat-form-field"
-          appearance="outline"
           class="form-field"
         >
           <mat-label>Name</mat-label>
@@ -15,30 +12,11 @@
             formControlName="name"
             autocomplete="off"
           />
-          <mat-error *ngIf="form.controls.name.hasError('required')">
+          <mat-error *ngIf="name?.hasError('required')">
             Name <strong>required</strong>
           </mat-error>
         </mat-form-field>
         <mat-form-field
-          class="mat-form-field"
-          appearance="outline"
-          class="form-field"
-        >
-          <mat-label>Email</mat-label>
-          <input
-            matInput
-            required
-            type="email"
-            formControlName="email"
-            autocomplete="off"
-          />
-          <mat-error *ngIf="form.controls.email.hasError('required')">
-            Email <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field
-          class="mat-form-field"
-          appearance="outline"
           class="form-field"
         >
           <mat-label>Password</mat-label>
@@ -49,31 +27,14 @@
             formControlName="password"
             autocomplete="off"
           />
-          <mat-error *ngIf="form.controls.password.hasError('required')">
+          <mat-error *ngIf="password?.hasError('required')">
             Password <strong>required</strong>
           </mat-error>
-          <mat-error *ngIf="form.controls.password.hasError('minlength')">
+          <mat-error *ngIf="password?.hasError('minlength')">
             Password <strong>must have at least {{ minPw }} characters</strong>
           </mat-error>
         </mat-form-field>
-        <mat-form-field
-          class="mat-form-field"
-          appearance="outline"
-          class="form-field"
-        >
-          <mat-label>Confirm password</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="repeatedPassword"
-            autocomplete="off"
-          />
-          <mat-error
-            *ngIf="form.controls.repeatedPassword.hasError('required')"
-          >
-            Please <strong>confirm your password</strong>
-          </mat-error>
-        </mat-form-field>
+        <span>Forgot password?</span>
       </form>
     </mat-card-content>
     <mat-card-actions
@@ -88,4 +49,3 @@
       <a routerLink="/register" mat-raised-button color="accent">New User?</a>
     </mat-card-actions>
   </mat-card>
-</div>
