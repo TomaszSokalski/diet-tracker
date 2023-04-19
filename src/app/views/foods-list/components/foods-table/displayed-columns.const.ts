@@ -3,5 +3,6 @@
     'weight',
     'caloriesPer100g',
     'nutriScore',
-    'action',
+    'tags',
+    'actions',
   ];
