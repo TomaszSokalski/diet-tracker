@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Food } from '@views/foods-list/interfaces/food.interface';
+import { Tag } from '@views/foods-list/interfaces/tag.interface';
 import { FoodListService } from '@views/foods-list/services/food-list.service';
 import { TagsService } from '@views/foods-list/services/tags.service';
-import { Tag } from '@views/foods-list/interfaces/tag.interface';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -83,10 +83,27 @@ export class FoodListState {
     });
   }
 
-  searchFoods(searchBy?: string, tags?: Tag['id'][]): void {
+  searchFoodsByName(searchedValue: string): void {
     this.updateLoading(true);
 
-    this.foodService.searchFoods(searchBy, tags).subscribe({
+    this.foodService.searchFoodsByName(searchedValue).subscribe({
+      next: (response) => {
+        this.errorSource.next(null);
+        this.foodsSource.next(response.data);
+      },
+      error: (error) => {
+        this.errorSource.next(error);
+      },
+      complete: () => {
+        this.updateLoading(false);
+      },
+    });
+  }
+
+  searchFoodsByTag(searchedValue: number): void {
+    this.updateLoading(true);
+
+    this.foodService.searchFoodsByTag(searchedValue).subscribe({
       next: (response) => {
         this.errorSource.next(null);
         this.foodsSource.next(response.data);

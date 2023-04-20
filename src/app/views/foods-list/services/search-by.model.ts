@@ -1,0 +1,1 @@
+export type SearchBy = 'foodName' | 'tag';

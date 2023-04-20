@@ -8,7 +8,7 @@
 
   <mat-form-field>
   <mat-label>SearchByTags</mat-label>
-  <mat-select formControlName="tags" multiple *ngIf="(tags$ | async) as tags">
+  <mat-select formControlName="tag" *ngIf="(tags$ | async) as tags">
     <mat-option *ngFor="let tag of tags" [value]="tag.id">{{ tag.name }}</mat-option>
   </mat-select>
 </mat-form-field>

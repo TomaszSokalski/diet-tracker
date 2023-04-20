@@ -1,11 +1,11 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
-import { debounceTime, filter, startWith, takeUntil } from 'rxjs';
+import { debounceTime, filter, takeUntil } from 'rxjs';
 
 import { UnsubscribeComponent } from '@shared/unsubscribe';
+import { AddEditFoodComponent } from '@views/foods-list/components/add-edit-food/add-edit-food.component';
 import { Food } from '@views/foods-list/interfaces/food.interface';
 import { FoodListState } from '@views/foods-list/state/food-list.state';
-import { AddEditFoodComponent } from '@views/foods-list/components/add-edit-food/add-edit-food.component';
 import { FoodDetailComponent } from '../food-detail/food-detail.component';
 import { DISPLAYED_COLUMNS } from './displayed-columns.const';
 
@@ -14,6 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { SearchBy } from '../../services/search-by.model';
 
 @Component({
   selector: 'app-foods-table',
@@ -37,7 +38,7 @@ export class FoodsTableComponent
 
   form = this.fb.group({
     foodName: [null],
-    tags: [null],
+    tag: [null],
   });
 
   constructor(
@@ -51,7 +52,8 @@ export class FoodsTableComponent
 
   ngOnInit(): void {
     this.initialFoodsData();
-    this.onFormChanged();
+    this.listenToFormValueChanges('foodName');
+    this.listenToFormValueChanges('tag');
     this.listenToErrors();
     this.getTags();
     this.getUpdatedFoods();
@@ -65,7 +67,7 @@ export class FoodsTableComponent
   addFood(): void {
     this.dialog
       .open(AddEditFoodComponent, {
-        data: { add: true},
+        data: { add: true },
         width: '50%',
       })
       .afterClosed()
@@ -78,7 +80,7 @@ export class FoodsTableComponent
     this.dialog
       .open(AddEditFoodComponent, {
         width: '50%',
-        data: {id, add: false},
+        data: { id, add: false },
       })
       .afterClosed()
       .subscribe(() => {
@@ -107,14 +109,18 @@ export class FoodsTableComponent
     });
   }
 
-  private onFormChanged(): void {
-    this.form.valueChanges
-      .pipe(takeUntil(this.destroy$), startWith(''), debounceTime(500))
+  private listenToFormValueChanges(searchBy: SearchBy): void {
+    this.form
+      .get(searchBy)
+      ?.valueChanges.pipe(takeUntil(this.destroy$), debounceTime(500))
       .subscribe((formValue) => {
-        return this.foodListState.searchFoods(
-          formValue.foodName,
-          formValue.tags
-        );
+        if (searchBy === 'foodName') {
+          return this.foodListState.searchFoodsByName(formValue);
+        } else if (searchBy === 'tag') {
+          return this.foodListState.searchFoodsByTag(formValue);
+        } else {
+          console.log('wrong parameter');
+        }
       });
   }
 

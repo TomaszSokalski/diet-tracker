@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { API_URL } from '@shared/utils/api/config.const';
 import { Food } from '@views/foods-list/interfaces/food.interface';
 import { FoodResponse } from '../interfaces/food-response.interface';
-import { Tag } from '../interfaces/tag.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -23,19 +22,22 @@ export class FoodListService {
     return this.httpClient.get<Food>(`${API_URL}${this.BASE_PATH}/${id}`);
   }
 
-  searchFoods(searchBy?: string, tags?: Tag['id'][]): Observable<FoodResponse> {
+  searchFoodsByName(searchBy: string): Observable<FoodResponse> {
     let options = {};
 
     if (searchBy) {
       options = { params: new HttpParams().set('name', searchBy) };
     }
-    if (tags) {
-      options = { params: new HttpParams().set('tags', JSON.stringify(tags)) };
-    }
 
     return this.httpClient.get<FoodResponse>(
       `${API_URL}${this.BASE_PATH}`,
       options
+    );
+  }
+
+  searchFoodsByTag(tag: number): Observable<FoodResponse> {
+    return this.httpClient.get<FoodResponse>(
+      `${API_URL}${this.BASE_PATH}/${tag}`
     );
   }
 
