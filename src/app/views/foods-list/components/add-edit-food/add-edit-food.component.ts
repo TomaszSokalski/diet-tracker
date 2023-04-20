@@ -7,6 +7,7 @@ import { NutriScore } from '@shared/components/nutri-score/nutri-score.enum';
 import { FoodListState } from '@views/foods-list/state/food-list.state';
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AddEditDialogData } from '../../interfaces/add-edit-food-dialog-data.interface';
 
 @Component({
   selector: 'app-add-edit-food',
@@ -23,13 +24,13 @@ export class AddEditFoodComponent
   form: FormGroup;
 
   readonly nutriscore = Object.keys(NutriScore);
-  private id = this.data;
+  private id = this.data.id;
 
   constructor(
     private foodListState: FoodListState,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AddEditFoodComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: string
+    @Inject(MAT_DIALOG_DATA) private data: AddEditDialogData
   ) {
     super();
   }
@@ -43,12 +44,20 @@ export class AddEditFoodComponent
     if (this.form.invalid) {
       return;
     }
-    
+
     this.id !== undefined && this.id !== null
       ? this.foodListState.updateFood(this.form.value, this.id)
       : this.foodListState.postFood(this.form.value);
 
-      this.dialogRef.close();
+    this.dialogRef.close();
+  }
+
+  isAddMode(): boolean {
+    return this.data.add === true;
+  }
+
+  isEditMode(): boolean {
+    return this.data.add === false;
   }
 
   private initForm(): void {
@@ -58,7 +67,7 @@ export class AddEditFoodComponent
       caloriesPer100g: [null, [Validators.min(0)]],
       nutriScore: [null],
       hasNutriScore: [false],
-      tags: [null]
+      tags: [null],
     });
   }
 
@@ -71,5 +80,4 @@ export class AddEditFoodComponent
       });
     }
   }
-
 }

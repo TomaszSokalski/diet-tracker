@@ -129,7 +129,7 @@ export class FoodListState {
       },
       complete: () => {
         this.updateLoading(false);
-        this.snackBar.open('Post food successfully');
+        this.snackBar.open('Added food successfully');
       },
     });
   }

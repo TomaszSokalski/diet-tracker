@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { debounceTime, filter, startWith, takeUntil } from 'rxjs';
 
@@ -22,7 +22,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class FoodsTableComponent
   extends UnsubscribeComponent
-  implements OnInit
+  implements OnInit, AfterViewInit
 {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -40,12 +40,11 @@ export class FoodsTableComponent
     tags: [null],
   });
 
-
   constructor(
     private dialog: MatDialog,
     private foodListState: FoodListState,
     private snackbar: MatSnackBar,
-    private fb: UntypedFormBuilder,
+    private fb: UntypedFormBuilder
   ) {
     super();
   }
@@ -66,6 +65,7 @@ export class FoodsTableComponent
   addFood(): void {
     this.dialog
       .open(AddEditFoodComponent, {
+        data: { add: true},
         width: '50%',
       })
       .afterClosed()
@@ -78,7 +78,7 @@ export class FoodsTableComponent
     this.dialog
       .open(AddEditFoodComponent, {
         width: '50%',
-        data: { id },
+        data: {id, add: false},
       })
       .afterClosed()
       .subscribe(() => {
@@ -91,7 +91,7 @@ export class FoodsTableComponent
     this.showSnackBar('Food deleted successfully');
   }
 
-  showFoodDetails(food: Food): void {
+  onFoodDetails(food: Food): void {
     this.dialog.open(FoodDetailComponent, {
       width: '50%',
       data: food,
@@ -99,8 +99,8 @@ export class FoodsTableComponent
   }
 
   private getTags() {
-      this.foodListState.getTags();
-    }
+    this.foodListState.getTags();
+  }
 
   private initialFoodsData(): void {
     this.foods$.pipe(takeUntil(this.destroy$)).subscribe((food) => {
@@ -112,7 +112,10 @@ export class FoodsTableComponent
     this.form.valueChanges
       .pipe(takeUntil(this.destroy$), startWith(''), debounceTime(500))
       .subscribe((formValue) => {
-        return this.foodListState.searchFoods(formValue.foodName, formValue.tags);
+        return this.foodListState.searchFoods(
+          formValue.foodName,
+          formValue.tags
+        );
       });
   }
 

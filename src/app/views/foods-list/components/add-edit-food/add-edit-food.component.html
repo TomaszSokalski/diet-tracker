@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add food</h1>
+<h1 mat-dialog-title>{{ isAddMode() ? 'Add Food' : 'Edit Food' }}</h1>
 
 <div mat-dialog-content>
   <form [formGroup]="form">
