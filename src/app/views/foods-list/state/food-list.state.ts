@@ -5,6 +5,7 @@ import { Food } from '@views/foods-list/interfaces/food.interface';
 import { FoodListService } from '@views/foods-list/services/food-list.service';
 import { TagsService } from '@views/foods-list/services/tags.service';
 import { Tag } from '@views/foods-list/interfaces/tag.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,8 @@ export class FoodListState {
 
   constructor(
     private foodService: FoodListService,
-    private tagsService: TagsService
+    private tagsService: TagsService,
+    private snackBar: MatSnackBar
   ) {}
 
   getFoods(): void {
@@ -75,6 +77,7 @@ export class FoodListState {
         this.errorSource.next(error);
       },
       complete: () => {
+        this.snackBar.open('Updated food successfully');
         this.updateLoading(false);
       },
     });
@@ -126,6 +129,7 @@ export class FoodListState {
       },
       complete: () => {
         this.updateLoading(false);
+        this.snackBar.open('Post food successfully');
       },
     });
   }
@@ -143,6 +147,7 @@ export class FoodListState {
       },
       complete: () => {
         this.updateLoading(false);
+        this.snackBar.open('Deleted food successfully');
       },
     });
   }

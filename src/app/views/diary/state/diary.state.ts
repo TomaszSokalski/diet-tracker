@@ -4,6 +4,7 @@ import { BehaviorSubject, finalize } from 'rxjs';
 import { DiaryResponse } from '@app/views/diary/interfaces/diary-response.interface';
 import { Diary } from '@app/views/diary/interfaces/diary.interface';
 import { DiaryService } from '../services/diary.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class DiaryState {
   private errorSource = new BehaviorSubject<Error | null>(null);
   error$ = this.errorSource.asObservable();
 
-  constructor(private diaryService: DiaryService) {}
+  constructor(private diaryService: DiaryService, private snackBar: MatSnackBar) {}
 
   getDiary(date?: string): void {
     this.updateLoading(true);
@@ -56,6 +57,9 @@ export class DiaryState {
         error: (error: Error) => {
           this.errorSource.next(error);
         },
+        complete: () => {
+          this.snackBar.open('Deleted food successfully');
+        }
       });
   }
 
