@@ -51,14 +51,13 @@ export class DiaryState {
         })
       )
       .subscribe({
-        next: () => {
+        next: (message) => {
           this.getDiary(date);
+          console.log(message);
+          this.snackBar.open(Object.values(message)[0]);
         },
         error: (error: Error) => {
           this.errorSource.next(error);
-        },
-        complete: () => {
-          this.snackBar.open('Deleted food successfully');
         }
       });
   }
