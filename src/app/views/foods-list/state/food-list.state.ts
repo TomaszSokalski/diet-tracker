@@ -138,16 +138,16 @@ export class FoodListState {
     this.updateLoading(true);
 
     this.foodService.deleteFood(id).subscribe({
-      next: () => {
+      next: (message) => {
         this.errorSource.next(null);
         this.getFoods();
+        this.snackBar.open(Object.values(message)[0]);
       },
       error: (error) => {
         this.errorSource.next(error);
       },
       complete: () => {
         this.updateLoading(false);
-        this.snackBar.open('Deleted food successfully');
       },
     });
   }

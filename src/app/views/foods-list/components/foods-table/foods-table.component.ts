@@ -88,7 +88,6 @@ export class FoodsTableComponent
 
   deleteFood(id: string): void {
     this.foodListState.deleteFood(id);
-    this.showSnackBar('Food deleted successfully');
   }
 
   onFoodDetails(food: Food): void {
