@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { API_URL } from '@shared/utils/api/config.const';
 import { DiaryResponse } from '@views/diary/interfaces/diary-response.interface';
-import { Diary } from '@views/diary/interfaces/diary.interface';
+import { Diary, DiaryPayload } from '@views/diary/interfaces/diary.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +33,7 @@ export class DiaryService {
     });
   }
 
-  postFoodToDiary(food: Diary): Observable<Diary> {
+  postFoodToDiary(food: DiaryPayload): Observable<Diary> {
     return this.httpClient.post<Diary>(`${API_URL}${this.BASE_PATH}`, food);
   }
 

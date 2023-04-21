@@ -1,18 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Diary } from '@views/diary/interfaces/diary.interface';
-import { Food } from '@views/foods-list/interfaces/food.interface';
 import { FoodListState } from '@views//foods-list/state/food-list.state';
+import { Food } from '@views/foods-list/interfaces/food.interface';
 import { DiaryService } from '../../services/diary.service';
 import { DiaryState } from '../../state/diary.state';
 
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { DiaryPayload } from '../../interfaces/diary.interface';
 import { MealType } from './meal-type';
 
 @Component({
@@ -96,20 +92,18 @@ export class DiaryFormComponent implements OnInit {
     });
   }
 
-  private diaryPayload(diaryForm: FormGroup): Diary {
+  private diaryPayload(diaryForm: FormGroup): DiaryPayload {
     const date = this.date;
     const formattedDate = this.datePipe.transform(date?.value, 'yyyy-MM-dd');
     const { value } = diaryForm;
     return {
       id: value.id,
       date: formattedDate!,
-      foods: [
-        {
-          id: value.foods.id,
-          weight: value.weight,
-          mealType: value.mealType,
-        },
-      ],
+      food: {
+        id: value.foods.id,
+        weight: value.weight,
+        mealType: value.mealType,
+      },
     };
   }
 

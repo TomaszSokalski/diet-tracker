@@ -5,3 +5,9 @@ export interface Diary {
   foods: Food[];
   date: string;
 }
+
+export interface DiaryPayload {
+  id: string;
+  food: Food;
+  date: string;
+}
